@@ -10,10 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sample1">
         <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".sample2"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".splashscreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

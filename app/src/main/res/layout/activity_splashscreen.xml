@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context=".splashscreen">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="background1.json"
+        app:lottie_loop="true" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="50dp"
+        android:textSize="30sp"
+        android:id="@+id/textview1"
+        android:text="Safe Connect"
+        android:textAlignment="center"
+        android:textColor="@color/purple_500"
+        android:textStyle="bold"
+        android:layout_above="@+id/l1"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/l1"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:layout_width="330dp"
+            android:layout_height="200dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/logo5"/>
+
+<!--        <com.airbnb.lottie.LottieAnimationView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            app:lottie_autoPlay="true"-->
+<!--            android:layout_marginTop="100dp"-->
+<!--            app:lottie_fileName="lottie.json"-->
+<!--            app:lottie_loop="true" />-->
+
+    </LinearLayout>
+</RelativeLayout>
