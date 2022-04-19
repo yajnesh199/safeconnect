@@ -3,17 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Github/safeconnect/app/src/main/res/drawable/background.xml" value="0.1195" />
+        <entry key="..\:/Github/safeconnect/app/src/main/res/drawable/cardcorner.xml" value="0.1" />
+        <entry key="..\:/Github/safeconnect/app/src/main/res/drawable/rounded_corner.xml" value="0.1" />
+        <entry key="..\:/Github/safeconnect/app/src/main/res/layout/activity_login.xml" value="0.17552083333333332" />
         <entry key="..\:/Github/safeconnect/app/src/main/res/layout/activity_main.xml" value="0.17552083333333332" />
-        <entry key="..\:/Gitlab/safeconnect/app/src/main/res/layout/activity_login.xml" value="0.2578125" />
-        <entry key="..\:/Gitlab/safeconnect/app/src/main/res/layout/activity_main.xml" value="0.2578125" />
-        <entry key="..\:/Gitlab/safeconnect/app/src/main/res/layout/activity_sample2.xml" value="0.2578125" />
-        <entry key="..\:/Gitlab/safeconnect/app/src/main/res/layout/activity_splashscreen.xml" value="0.2578125" />
+        <entry key="..\:/Github/safeconnect/app/src/main/res/layout/activity_sample2.xml" value="0.1" />
         <entry key="..\:/Users/Yajnesh/AndroidStudioProjects/sample1/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
       </map>
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
