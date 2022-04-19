@@ -12,15 +12,17 @@
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
         app:lottie_autoPlay="true"
+        app:lottie_speed="0.8"
         app:lottie_fileName="background1.json"
         app:lottie_loop="true" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_margin="50dp"
         android:textSize="30sp"
         android:id="@+id/textview1"
-        android:text="Safe Connect"
+        android:text="@string/safe_connect"
         android:textAlignment="center"
         android:textColor="@color/purple_500"
         android:textStyle="bold"
@@ -37,6 +39,7 @@
             android:layout_width="330dp"
             android:layout_height="200dp"
             android:layout_weight="1"
+            android:contentDescription="@string/app_name"
             app:srcCompat="@drawable/logo5"/>
 
 <!--        <com.airbnb.lottie.LottieAnimationView-->

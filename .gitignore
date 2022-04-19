@@ -139,3 +139,4 @@ lint/tmp/
 *.hprof
 .cxx
 local.properties
+.idea/misc.xml

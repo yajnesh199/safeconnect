@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Safe Connect</string>
+    <string name="safe_connect">Safe Connect</string>
+    <string name="hello">hell</string>
 </resources>

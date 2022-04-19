@@ -16,6 +16,9 @@
             android:name=".sample2"
             android:exported="false" />
         <activity
+            android:name=".Login_Activity"
+            android:exported="false" />
+        <activity
             android:name=".splashscreen"
             android:exported="true">
             <intent-filter>
