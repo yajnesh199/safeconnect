@@ -20,5 +20,13 @@ Button bt1;
                 Toast.makeText(MainActivity.this, "Button clicked", Toast.LENGTH_SHORT).show();
             }
         });
+
+        bt1.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Toast.makeText(MainActivity.this, "long click", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
     }
 }
