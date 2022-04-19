@@ -27,6 +27,6 @@ TextView textView;
             Intent intent=new Intent(splashscreen.this,Login_Activity.class);
             startActivity(intent);
             finish();
-        },2500);
+        },3000);
     }
 }
