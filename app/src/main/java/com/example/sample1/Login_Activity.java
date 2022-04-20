@@ -3,27 +3,53 @@ package com.example.sample1;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.Objects;
 
 public class Login_Activity extends AppCompatActivity {
     LottieAnimationView loginAnimationView;
+    String userstr, passstr;
+    SharedPreferences sharedPreferences;
+    TextInputEditText textInputEditTextUsername, textInputEditTextPassword;
+    Button btnlogin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        loginAnimationView=findViewById(R.id.login_Animation);
-        loginAnimationView.playAnimation();
         set_up_action_and_status_bar();
+        loginAnimationView = findViewById(R.id.login_Animation);
+        loginAnimationView.playAnimation();
+        sharedPreferences = getSharedPreferences("Details", Context.MODE_PRIVATE);
+        textInputEditTextUsername = findViewById(R.id.edusername);
+        textInputEditTextPassword = findViewById(R.id.edpassword);
+        btnlogin = findViewById(R.id.btn_login);
+        btnlogin.setOnClickListener(view -> {
+            userstr = Objects.requireNonNull(textInputEditTextUsername.getText()).toString();
+            passstr = Objects.requireNonNull(textInputEditTextPassword.getText()).toString();
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("user", userstr);
+            editor.putString("pass", passstr);
+            editor.apply();
+            Toast.makeText(Login_Activity.this, "Info saved Welcome", Toast.LENGTH_SHORT).show();
+        });
+
+
     }
-    public void set_up_action_and_status_bar() {
-        //hiding the action bar
+
+    private void set_up_action_and_status_bar() {
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.hide();
@@ -32,4 +58,6 @@ public class Login_Activity extends AppCompatActivity {
         window.setStatusBarColor(Color.WHITE);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
+
+
 }

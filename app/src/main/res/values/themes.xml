@@ -28,15 +28,6 @@
         <item name="boxCornerRadiusTopStart">15dp</item>
     </style>
 
-    <style name="Widget.AppTheme.CardView"
-        parent="@style/Widget.MaterialComponents.CardView">
 
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeTopRight">4dp</item>
-        <item name="cornerSizeTopLeft">8dp</item>
-        <item name="cornerSizeBottomRight">16dp</item>
-        <item name="cornerSizeBottomLeft">0dp</item>
-
-    </style>
 
 </resources>
