@@ -1,12 +1,16 @@
 package com.example.sample1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -22,11 +26,27 @@ public class pairingilist extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pairingilist);
         context = this;
         init();
-
+        IntentFilter filter =new IntentFilter(BluetoothDevice.ACTION_FOUND);
+       registerReceiver(receiver,filter);
+    }
+private final BroadcastReceiver receiver=new BroadcastReceiver() {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        String action=intent.getAction();
+        if(BluetoothDevice.ACTION_FOUND.equals(action)){
+            BluetoothDevice device=intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+        String deviceAdress=device.getAddress();
+        }
+    }
+};
+    protected  void onDestroy(){
+        super.onDestroy();
+        unregisterReceiver(receiver);
     }
 
     private void init() {
@@ -35,14 +55,14 @@ public class pairingilist extends AppCompatActivity {
         listViewpaired.setAdapter(adapterpaired);
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-        }
-        Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
-        if(pairedDevices!=null && pairedDevices.size()>0){
-            for(BluetoothDevice device:pairedDevices){
-                adapterpaired.add(device.getName()+"\n"+device.getAddress());
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED) {
+            Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
+            if (pairedDevices != null && pairedDevices.size() > 0) {
+                for (BluetoothDevice device : pairedDevices) {
+                    adapterpaired.add(device.getName() + "\n" + device.getAddress());
+                }
             }
         }
+
     }
 }
