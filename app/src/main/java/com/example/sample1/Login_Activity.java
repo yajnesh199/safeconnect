@@ -36,6 +36,7 @@ public class Login_Activity extends AppCompatActivity {
         textInputEditTextUsername = findViewById(R.id.edusername);
         textInputEditTextPassword = findViewById(R.id.edpassword);
         btnlogin = findViewById(R.id.btn_login);
+
         btnlogin.setOnClickListener(view -> {
             userstr = Objects.requireNonNull(textInputEditTextUsername.getText()).toString();
             passstr = Objects.requireNonNull(textInputEditTextPassword.getText()).toString();

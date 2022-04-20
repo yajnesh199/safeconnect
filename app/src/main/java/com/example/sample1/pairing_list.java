@@ -18,7 +18,7 @@ import android.widget.ListView;
 
 import java.util.Set;
 
-public class pairingilist extends AppCompatActivity {
+public class pairing_list extends AppCompatActivity {
     private ListView listViewpaired;
     private Context context;
     private ArrayAdapter<String> adapterpaired;
@@ -28,7 +28,7 @@ public class pairingilist extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pairingilist);
+        setContentView(R.layout.activity_pairing_list);
         context = this;
         init();
         IntentFilter filter =new IntentFilter(BluetoothDevice.ACTION_FOUND);

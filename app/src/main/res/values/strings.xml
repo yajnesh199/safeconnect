@@ -7,4 +7,5 @@
     <string name="password">Password</string>
     <string name="login">LOGIN</string>
     <string name="str_menu_bluetooth">Switch On</string>
+    <string name="nearby_bt_devices">NearBy BT Devices</string>
 </resources>
