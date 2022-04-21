@@ -8,10 +8,14 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Paired"/>
-    <ListView
+        android:text="Paired"
+        android:id="@+id/out"/>
+
+    <TextView
+        android:id="@+id/tvBluetoothInfo"
+        android:layout_below="@+id/out"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/list_paired"/>
+        android:text="TextView" />
 
 </RelativeLayout>

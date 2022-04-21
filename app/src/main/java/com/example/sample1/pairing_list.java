@@ -5,64 +5,67 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-
+import android.widget.TextView;
+import android.widget.Toast;
 import java.util.Set;
 
 public class pairing_list extends AppCompatActivity {
-    private ListView listViewpaired;
-    private Context context;
-    private ArrayAdapter<String> adapterpaired;
-    private BluetoothAdapter bluetoothAdapter;
+    private static final int REQUEST_ENABLE_BT = 12;
+    private TextView out;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pairing_list);
-        context = this;
-        init();
-        IntentFilter filter =new IntentFilter(BluetoothDevice.ACTION_FOUND);
-       registerReceiver(receiver,filter);
-    }
-private final BroadcastReceiver receiver=new BroadcastReceiver() {
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        String action=intent.getAction();
-        if(BluetoothDevice.ACTION_FOUND.equals(action)){
-            BluetoothDevice device=intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-        String deviceAdress=device.getAddress();
+        out = findViewById(R.id.tvBluetoothInfo);
+        setBluetoothData();
+        if (Connection.blueTooth()) {
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED) {
+                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+            }
         }
     }
-};
-    protected  void onDestroy(){
-        super.onDestroy();
-        unregisterReceiver(receiver);
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        out.setText("");
+        setBluetoothData();
     }
 
-    private void init() {
-        listViewpaired = findViewById(R.id.list_paired);
-        adapterpaired = new ArrayAdapter<String>(context, R.layout.devicelist);
-        listViewpaired.setAdapter(adapterpaired);
-        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-
+    @SuppressLint("HardwareIds")
+    private void setBluetoothData() {
+        BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED) {
-            Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
-            if (pairedDevices != null && pairedDevices.size() > 0) {
-                for (BluetoothDevice device : pairedDevices) {
-                    adapterpaired.add(device.getName() + "\n" + device.getAddress());
-                }
+            out.append("\nAdapter: " + adapter.toString() + "\n Name: " + adapter.getName() + "\n Address: " + adapter.getAddress());
+            return;
+        }
+
+        if (adapter == null) {
+            Toast.makeText(this, "Bluetooth NOT supported. Aborting.",
+                    Toast.LENGTH_LONG).show();
+        }
+
+        out.append("\n Starting discovery...");
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED) {
+            assert adapter != null;
+            adapter.startDiscovery();
+            out.append("\nDone with discovery...\n");
+            out.append("\nDevices Paired:");
+            Set<BluetoothDevice> devices = adapter.getBondedDevices();
+            for (BluetoothDevice device : devices) {
+                out.append("\nFound device: " + device.getName() + " Add: " + device.getAddress());
             }
         }
 
     }
 }
+
+

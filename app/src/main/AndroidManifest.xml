@@ -9,6 +9,8 @@
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
 
+    <uses-permission android:name="android.permission.LOCAL_MAC_ADDRESS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -30,6 +32,9 @@
             android:exported="false" />
         <activity
             android:name=".ListBluetooth"
+            android:exported="false" />
+        <activity
+            android:name=".pairing_list"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
