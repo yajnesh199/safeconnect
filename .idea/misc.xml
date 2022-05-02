@@ -3,11 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Github/safeconnect/app/src/main/res/layout/activity_list_bluetooth.xml" value="0.16770833333333332" />
+        <entry key="..\:/Github/safeconnect/app/src/main/res/layout/activity_list_bluetooth.xml" value="0.14917127071823205" />
         <entry key="..\:/Github/safeconnect/app/src/main/res/layout/activity_main.xml" value="0.17552083333333332" />
-        <entry key="..\:/Github/safeconnect/app/src/main/res/layout/activity_pairing_list.xml" value="0.10054347826086957" />
-        <entry key="..\:/Github/safeconnect/app/src/main/res/layout/devicelist.xml" value="0.1796875" />
-        <entry key="..\:/Gitlab/safeconnect/app/src/main/res/layout/activity_list_bluetooth.xml" value="0.2578125" />
+        <entry key="..\:/Github/safeconnect/app/src/main/res/layout/activity_pairing_list.xml" value="0.14666666666666667" />
+        <entry key="..\:/Github/safeconnect/app/src/main/res/layout/activity_splashscreen.xml" value="0.16770833333333332" />
+        <entry key="..\:/Github/safeconnect/app/src/main/res/layout/device_list_item.xml" value="0.16770833333333332" />
+        <entry key="..\:/Github/safeconnect/app/src/main/res/layout/devicelist.xml" value="0.16770833333333332" />
+        <entry key="..\:/Github/safeconnect/app/src/main/res/menu/menu_activity.xml" value="0.16770833333333332" />
+        <entry key="..\:/Github/safeconnect/app/src/main/res/menu/menu_scan.xml" value="0.16770833333333332" />
         <entry key="..\:/Gitlab/safeconnect/app/src/main/res/layout/activity_login.xml" value="0.2578125" />
         <entry key="..\:/Gitlab/safeconnect/app/src/main/res/layout/activity_main.xml" value="0.2578125" />
         <entry key="..\:/Gitlab/safeconnect/app/src/main/res/layout/activity_sample2.xml" value="0.2578125" />
