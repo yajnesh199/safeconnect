@@ -4,47 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".pairing_list">
-    <ProgressBar
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_gravity="center"
-        android:id="@+id/scan_progress"
-        android:visibility="gone"/>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
     android:orientation="vertical">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="@string/str_paired_device" />
+<!--    tools:context=".pairing_list">-->
+<!--    <ProgressBar-->
+<!--        android:layout_width="25dp"-->
+<!--        android:layout_height="25dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:id="@+id/scan_progress"-->
+<!--        android:visibility="gone"/>-->
+<!--<LinearLayout-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="0dp"-->
+<!--    android:layout_weight="1"-->
+<!--    android:orientation="vertical">-->
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textSize="20sp"-->
+<!--        android:text="@string/str_paired_device" />-->
 
-    <ListView
-        android:id="@+id/list_paired_device"
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="wrap_content" />
+<!--    <ListView-->
+<!--        android:id="@+id/list_paired_device"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_weight="1"-->
+<!--        android:layout_height="wrap_content" />-->
 
-</LinearLayout>
+<!--</LinearLayout>-->
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    android:orientation="vertical">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="@string/str_available_device" />
+<!--<LinearLayout-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="0dp"-->
+<!--    android:layout_weight="1"-->
+<!--    android:orientation="vertical">-->
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textSize="20sp"-->
+<!--        android:text="@string/str_available_device" />-->
 
-    <ListView
-        android:id="@+id/list_available_device"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</LinearLayout>
+<!--    <ListView-->
+<!--        android:id="@+id/list_available_device"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content" />-->
+<!--</LinearLayout>-->
 </LinearLayout>
