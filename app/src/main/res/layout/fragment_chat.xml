@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".chatFragment">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_paired_device"
+            android:textColor="#0B0A0A"
+            android:layout_alignParentTop="true"
+            android:id="@+id/tv_title"
+            android:textSize="20sp" />
+        <ListView
+            android:id="@+id/list_paired_device"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/tv_title"
+            android:layout_height="match_parent" />
+
+</RelativeLayout>

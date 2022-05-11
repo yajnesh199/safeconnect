@@ -276,14 +276,15 @@ import java.util.Set;
 import java.util.UUID;
 
 public class ListBluetooth extends AppCompatActivity {
-    Button listen, send, listDevices;
+    Button listen, send, listDevices, btnencrypt, btndecrypt;
     ListView listView, listaviavble;
     TextView messageBox, status;
-    EditText writeMessage;
+    EditText writeMessage, key;
     BluetoothAdapter bluetoothAdapter;
     BluetoothDevice[] bluetoothDevices;
     SendReceive sendReceive;
-   // ArrayAdapter<String> arrayAdapter;
+
+    // ArrayAdapter<String> arrayAdapter;
     //ArrayList<String> stringArrayList = new ArrayList<String>();
     static final int STATE_LISTENING = 1;
     static final int STATE_CONNECTING = 2;
@@ -302,12 +303,15 @@ public class ListBluetooth extends AppCompatActivity {
         setContentView(R.layout.activity_list_bluetooth);
         listen = findViewById(R.id.listen);
         send = findViewById(R.id.send);
+        key = findViewById(R.id.key);
         listDevices = findViewById(R.id.listDevices);
         listView = findViewById(R.id.listview);
         listaviavble = findViewById(R.id.listaviavble);
         status = findViewById(R.id.status);
         messageBox = findViewById(R.id.msg);
         writeMessage = findViewById(R.id.writemsg);
+        btnencrypt = findViewById(R.id.Encrypt);
+        btndecrypt = findViewById(R.id.Decrypt);
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         implementListeners();
         set_up_action_and_status_bar();
@@ -363,6 +367,31 @@ public class ListBluetooth extends AppCompatActivity {
                 //     String message = etsendmsg.getText().toString();
                 sendReceive.write(string.getBytes());
                 Log.e(TAG, "setting up server" + string);
+
+            }
+        });
+        btnencrypt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    String encrypt = com.scottyab.aescrypt.AESCrypt.encrypt(key.getText().toString(), writeMessage.getText().toString());
+                    writeMessage.setText(encrypt);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+        });
+        btndecrypt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String string = writeMessage.getText().toString();
+                try {
+                    String decrypt = com.scottyab.aescrypt.AESCrypt.decrypt(key.getText().toString(), messageBox.getText().toString());
+                    messageBox.setText(decrypt);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -397,8 +426,10 @@ public class ListBluetooth extends AppCompatActivity {
             return true;
         }
     });
+
     private class ServerClass extends Thread {
         private BluetoothServerSocket serverSocket;
+
         public ServerClass() {
             try {
                 if (ActivityCompat.checkSelfPermission(ListBluetooth.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
@@ -409,6 +440,7 @@ public class ListBluetooth extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+
         public void run() {
             BluetoothSocket socket = null;
             while (true) {
@@ -507,10 +539,11 @@ public class ListBluetooth extends AppCompatActivity {
                 }
             }
         }
+
         public void write(byte[] bytes) {
             try {
                 outputStream.write(bytes);
-               // Log.e(TAG, "write bytes" + bytes);
+                // Log.e(TAG, "write bytes" + bytes);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -526,4 +559,5 @@ public class ListBluetooth extends AppCompatActivity {
         window.setStatusBarColor(Color.WHITE);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
+
 }

@@ -40,7 +40,7 @@
             android:layout_height="250dp"
             android:layout_weight="1"
             android:contentDescription="@string/app_name"
-            app:srcCompat="@drawable/meta"/>
+            app:srcCompat="@drawable/logo01"/>
 
 <!--        <com.airbnb.lottie.LottieAnimationView-->
 <!--            android:layout_width="wrap_content"-->

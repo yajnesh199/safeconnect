@@ -3,7 +3,9 @@ package com.example.sample1;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -38,16 +40,17 @@ public class Login_Activity extends AppCompatActivity {
         btnlogin = findViewById(R.id.btn_login);
 
         btnlogin.setOnClickListener(view -> {
-            userstr = Objects.requireNonNull(textInputEditTextUsername.getText()).toString();
-            passstr = Objects.requireNonNull(textInputEditTextPassword.getText()).toString();
+            userstr = (textInputEditTextUsername.getText()).toString();
+            passstr = (textInputEditTextPassword.getText()).toString();
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("user", userstr);
             editor.putString("pass", passstr);
             editor.apply();
+            editor.commit();
+            Intent intent = new Intent(Login_Activity.this,pairing_list.class);
+            startActivity(intent);
             Toast.makeText(Login_Activity.this, "Info saved Welcome", Toast.LENGTH_SHORT).show();
         });
-
-
     }
 
     private void set_up_action_and_status_bar() {
@@ -59,6 +62,4 @@ public class Login_Activity extends AppCompatActivity {
         window.setStatusBarColor(Color.WHITE);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
-
-
 }
