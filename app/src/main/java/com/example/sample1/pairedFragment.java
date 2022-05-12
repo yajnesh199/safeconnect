@@ -17,6 +17,9 @@ import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -29,36 +32,48 @@ import java.util.Set;
 
 
 public class pairedFragment extends Fragment {
-    private ListView lispairedevice, listavialable;
-    private ArrayAdapter<String> adapterpaired, adapteraivalable;
-    private BluetoothAdapter bluetoothAdapter;
-    private ProgressBar progresscandevice;
-    BluetoothDevice[] bluetoothDevices;
+//    private ListView lispairedevice, listavialable;
+//    private ArrayAdapter<String> adapterpaired, adapteraivalable;
+//    private BluetoothAdapter bluetoothAdapter;
+//    private ProgressBar progresscandevice;
+//    BluetoothDevice[] bluetoothDevices;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_chat, container, false);
 
-        View view = inflater.inflate(R.layout.fragment_paired, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_chat, container, false);
+
+        //   View view = inflater.inflate(R.layout.fragment_paired, container, false);
+        // return view;
     }
-//    public void init() {
+
+//    @Override
+//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+//        super.onViewCreated(view, savedInstanceState);
+//        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+//        scan();
+//        ListView listView = (ListView) view.findViewById(R.id.list_available_device);
+//        adapteraivalable = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1);
+//              listView.setAdapter(adapteraivalable);
+
 //        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
 //            Set<BluetoothDevice> pairedDevice = bluetoothAdapter.getBondedDevices();
 //            if (pairedDevice != null && pairedDevice.size() > 0) {
 //                for (BluetoothDevice device : pairedDevice) {
-//                    adapterpaired.add(device.getName() + "\n" + device.getAddress());
+//                    adapteraivalable.add(device.getName() + "\n" + device.getAddress());
 //                    Log.e("tag", "name" + device.getName());
 //                }
+//
 //            }
-//            IntentFilter intentFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-//            registerReceiver(bluetoothdevicelistner, intentFilter);
-//            IntentFilter intentFilter1 = new IntentFilter(bluetoothAdapter.ACTION_DISCOVERY_FINISHED);
-//            registerReceiver(bluetoothdevicelistner, intentFilter1);
-//        }
+
+//        IntentFilter intentFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+//        getActivity().registerReceiver(bluetoothdevicelistner, intentFilter);
+//        IntentFilter intentFilter1 = new IntentFilter(bluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+//        getActivity().registerReceiver(bluetoothdevicelistner, intentFilter1);
 //    }
+//
 //    private BroadcastReceiver bluetoothdevicelistner = new BroadcastReceiver() {
 //        @Override
 //        public void onReceive(Context context, Intent intent) {
@@ -71,7 +86,6 @@ public class pairedFragment extends Fragment {
 //                        adapteraivalable.add(device.getName() + "\n" + device.getAddress());
 //                    }
 //                } else if (bluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
-//                    progresscandevice.setVisibility(View.GONE);
 //                    if (adapteraivalable.getCount() == 0) {
 //                        Toast.makeText(context, "No device found", Toast.LENGTH_SHORT).show();
 //                    } else {
@@ -81,23 +95,45 @@ public class pairedFragment extends Fragment {
 //            }
 //        }
 //    };
-//    private void scan() {
-//        progresscandevice.setVisibility(View.VISIBLE);
-//        adapteraivalable.clear();
+
+//    @Override
+//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+//        getActivity().getMenuInflater().inflate(R.menu.menu_scan, menu);
+//        super.onCreateOptionsMenu(menu, inflater);
+//    }
+//
+//
+//
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.menu_scan:
+//                //Toast.makeText(this, "Scan devices clicked", Toast.LENGTH_SHORT).show();
+//                scan();
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
+
+//    @Override
+//    public void onDestroy() {
+//        super.onDestroy();
+//        if (bluetoothdevicelistner != null) {
+//            getActivity().unregisterReceiver(bluetoothdevicelistner);
+//        }
+//    }
+//
+//    public void scan() {
 //
 //        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
 //            if (bluetoothAdapter.isDiscovering()) {
 //                bluetoothAdapter.cancelDiscovery();
+//                Log.e("h","scan");
 //            }
 //            bluetoothAdapter.startDiscovery();
+//            Log.e("h","scan");
 //            return;
-//        }
-//    }
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        if (bluetoothdevicelistner != null) {
-//            unregisterReciever(bluetoothdevicelistner);
 //        }
 //    }
 

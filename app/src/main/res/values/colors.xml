@@ -9,4 +9,10 @@
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#696969</color>
     <color name="orange">#FFA500</color>
+    <color name="colorTextPrimary">#ffffff</color>
+    <color name="colorTextSecondary">#a3ffffff</color>
+    <color name="colorBadge">#f4d415</color>
+    <color name="indicatorColor">#2dffffff</color>
+    <color name="iconTint">#c8ffffff</color>
+    <color name="iconTintActive">#ffffff</color>
 </resources>
