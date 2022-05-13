@@ -1,12 +1,16 @@
 package com.example.sample1;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.Window;
 
 import me.ibrahimsn.lib.OnItemSelectedListener;
 import me.ibrahimsn.lib.SmoothBottomBar;
@@ -17,6 +21,7 @@ public class bottomnavig extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        set_up_action_and_status_bar();
         setContentView(R.layout.activity_bottomnavig);
         // menu=findViewById(R.id.menu);
         smoothBottomBar = findViewById(R.id.bottomBar);
@@ -106,5 +111,15 @@ public class bottomnavig extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    private void set_up_action_and_status_bar() {
+        ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.hide();
+        //to get transparent status bar, try changing the themes
+        Window window = getWindow();
+        window.setStatusBarColor(Color.WHITE);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
 }

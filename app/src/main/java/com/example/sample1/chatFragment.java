@@ -23,6 +23,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Set;
 
 
@@ -32,7 +34,9 @@ public class chatFragment extends Fragment {
     private BluetoothAdapter bluetoothAdapter;
     private ProgressBar progresscandevice;
     BluetoothDevice[] bluetoothDevices;
-    //  RecyclerView recyclerView;
+    RecyclerView recyclerView;
+    recycleadapter adapter;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,10 +51,13 @@ public class chatFragment extends Fragment {
         ListView listView = (ListView) view.findViewById(R.id.list_paired_device);
         adapterpaired = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1);
         listView.setAdapter(adapterpaired);
+//        recyclerView = getActivity().findViewById(R.id.recview);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
             Set<BluetoothDevice> devices = bluetoothAdapter.getBondedDevices();
             String[] strings = new String[devices.size()];
+            ArrayList<String> stringlist= new ArrayList<>(Arrays.asList(strings));
             bluetoothDevices = new BluetoothDevice[devices.size()];
             int index = 0;
             if (devices.size() > 0) {
@@ -59,9 +66,12 @@ public class chatFragment extends Fragment {
                     strings[index] = device.getName();
                     index++;
                 }
-                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, strings);
-                listView.setAdapter(arrayAdapter);
-
+                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, strings);
+                   listView.setAdapter(arrayAdapter);
+//                adapter = new recycleadapter(getActivity(), stringlist);
+//                recyclerView = (RecyclerView) getActivity().findViewById(R.id.recview);
+//                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//                recyclerView.setAdapter(adapter);
             }
         }
     }
