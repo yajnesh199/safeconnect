@@ -40,6 +40,7 @@ public class pairedFragment extends Fragment {
     private BluetoothAdapter bluetoothAdapter;
     RecyclerView recyclerView;
     recycleadapter adapter;
+    ArrayList<String> stringList = new ArrayList<>();
 
 
     @Override
@@ -61,6 +62,7 @@ public class pairedFragment extends Fragment {
         scan();
         recyclerView = (RecyclerView) getActivity().findViewById(R.id.recviewpaired);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter = new recycleadapter(getActivity(), stringList);
 //        ListView listView = (ListView) getActivity().findViewById(R.id.list_available_device);
 //        adapteraivalable = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1);
 //        listView.setAdapter(adapteraivalable);
@@ -89,18 +91,14 @@ public class pairedFragment extends Fragment {
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-
                     if (device.getBondState() != BluetoothDevice.BOND_BONDED) {
-                        ArrayList<String> stringList = new ArrayList<>();
                         stringList.add(device.getName() + "\n" + device.getAddress());
                         Log.e("BT", "device" + device.getName());
                         Log.e("BT", "address" + device.getAddress());
                         Log.e("BT", "Stringlist" + stringList);
-                        adapter = new recycleadapter(getActivity(), stringList);
                         recyclerView.setAdapter(adapter);
-                        adapter.notifyDataSetChanged();
-
                     }
+                    adapter.notifyDataSetChanged();
 
                 } else if (bluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
                     if (adapteraivalable.getCount() == 0) {
