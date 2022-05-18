@@ -1,6 +1,9 @@
 package com.example.sample1;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class chatadapter extends RecyclerView.Adapter< chatadapter.myviewholder> {
+public class chatadapter extends RecyclerView.Adapter<chatadapter.myviewholder> {
     ArrayList<String> stringList;
+    Context context;
 
     public chatadapter(FragmentActivity activity, ArrayList<String> stringList) {
         this.stringList = stringList;
+
     }
 
     @NonNull
@@ -29,7 +34,7 @@ public class chatadapter extends RecyclerView.Adapter< chatadapter.myviewholder>
     }
 
     @Override
-    public void onBindViewHolder(@NonNull myviewholder holder,  int position) {
+    public void onBindViewHolder(@NonNull myviewholder holder, int position) {
         //String data = stringList.get(position);
         holder.tvv_paired.setText(stringList.get(position).toString());
 
@@ -45,8 +50,14 @@ public class chatadapter extends RecyclerView.Adapter< chatadapter.myviewholder>
 
         public myviewholder(@NonNull View itemView) {
             super(itemView);
-            tvv_paired= itemView.findViewById(R.id.tvv_paired);
-
+            tvv_paired = itemView.findViewById(R.id.tvv_paired);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(view.getContext(), chatActivity.class);
+                    view.getContext().startActivity(intent);
+                }
+            });
         }
     }
 }

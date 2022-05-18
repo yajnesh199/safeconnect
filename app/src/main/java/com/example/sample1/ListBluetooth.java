@@ -280,7 +280,7 @@ public class ListBluetooth extends AppCompatActivity {
     ListView listView, listaviavble;
     TextView messageBox, status;
     EditText writeMessage, key;
-    BluetoothAdapter bluetoothAdapter;
+
     BluetoothDevice[] bluetoothDevices;
     SendReceive sendReceive;
 
@@ -295,6 +295,7 @@ public class ListBluetooth extends AppCompatActivity {
     private static final String APP_NAME = "BluetoothChatApp";
     private static final UUID MY_UUID = UUID.fromString("c413e31a-3766-48f9-8a20-e9f5b7b77b99");
     private static final String TAG = "Bluetooth";
+    BluetoothAdapter bluetoothAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

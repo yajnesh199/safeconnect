@@ -42,6 +42,8 @@ package com.example.sample1;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +52,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -87,7 +90,17 @@ public class recycleadapter extends RecyclerView.Adapter< recycleadapter.myviewh
         public myviewholder(@NonNull View itemView) {
             super(itemView);
             tvv_paired= itemView.findViewById(R.id.tvv_paired);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String id=tvv_paired.getText().toString();
+                    Log.e("bt_id","he " + id);
+                    Intent intent = new Intent(view.getContext(),Roomdb.class);
 
+                    intent.putExtra("key", "value" );
+                    view.getContext().startActivity(intent);
+                }
+            });
         }
     }
 }

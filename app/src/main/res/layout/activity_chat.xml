@@ -5,11 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".chatActivity"
-    android:background="@color/teal_200">
+    android:background="@color/lightyellow">
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/chatrecycleview"
+        android:id="@+id/recview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+       />
 <androidx.cardview.widget.CardView
     android:layout_width="match_parent"
     android:layout_height="50dp"
@@ -22,17 +24,20 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
         <EditText
-            android:id="@+id/textInput"
+            android:id="@+id/chat_input_msg"
             android:layout_width="50dp"
             android:layout_height="55dp"
             android:layout_weight="1"
             android:hint="Type a message.."/>
-        <ImageView
+
+        <ImageButton
             android:layout_width="30dp"
             android:layout_height="50dp"
             android:layout_marginRight="10dp"
             android:src="@drawable/ic_baseline_send_24"
-            app:tint="@color/teal_200"/>
+            app:tint="@color/teal_200"
+            android:id="@+id/chat_send_msg"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
 </RelativeLayout>
+
