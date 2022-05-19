@@ -95,7 +95,7 @@ public class recycleadapter extends RecyclerView.Adapter< recycleadapter.myviewh
                 public void onClick(View view) {
                     String id=tvv_paired.getText().toString();
                     Log.e("bt_id","he " + id);
-                    Intent intent = new Intent(view.getContext(),Roomdb.class);
+                    Intent intent = new Intent(view.getContext(),chatActivity.class);
 
                     intent.putExtra("key", "value" );
                     view.getContext().startActivity(intent);

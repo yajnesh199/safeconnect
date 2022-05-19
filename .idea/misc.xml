@@ -5,11 +5,12 @@
       <map>
         <entry key="..\:/Github/safeconnect/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Github/safeconnect/app/src/main/res/drawable/background.xml" value="0.1" />
+        <entry key="..\:/Github/safeconnect/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.138" />
         <entry key="..\:/Github/safeconnect/app/src/main/res/drawable/receivemsgdrawable.xml" value="0.1765" />
         <entry key="..\:/Github/safeconnect/app/src/main/res/drawable/rounded_corner.xml" value="0.1" />
         <entry key="..\:/Github/safeconnect/app/src/main/res/drawable/sendmsgdrawable.xml" value="0.1765" />
         <entry key="..\:/Github/safeconnect/app/src/main/res/layout/activity_bottomnavig.xml" value="0.14666666666666667" />
-        <entry key="..\:/Github/safeconnect/app/src/main/res/layout/activity_chat.xml" value="0.16666666666666666" />
+        <entry key="..\:/Github/safeconnect/app/src/main/res/layout/activity_chat.xml" value="0.14666666666666667" />
         <entry key="..\:/Github/safeconnect/app/src/main/res/layout/activity_chatactivity2.xml" value="0.16770833333333332" />
         <entry key="..\:/Github/safeconnect/app/src/main/res/layout/activity_list_bluetooth.xml" value="0.14917127071823205" />
         <entry key="..\:/Github/safeconnect/app/src/main/res/layout/activity_login.xml" value="0.16666666666666666" />
@@ -17,6 +18,8 @@
         <entry key="..\:/Github/safeconnect/app/src/main/res/layout/activity_pairing_list.xml" value="0.16666666666666666" />
         <entry key="..\:/Github/safeconnect/app/src/main/res/layout/activity_roomdb.xml" value="0.16770833333333332" />
         <entry key="..\:/Github/safeconnect/app/src/main/res/layout/activity_splashscreen.xml" value="0.16770833333333332" />
+        <entry key="..\:/Github/safeconnect/app/src/main/res/layout/chatactionbar.xml" value="0.16770833333333332" />
+        <entry key="..\:/Github/safeconnect/app/src/main/res/layout/chattoolbar.xml" value="0.14666666666666667" />
         <entry key="..\:/Github/safeconnect/app/src/main/res/layout/custom_list.xml" value="0.16770833333333332" />
         <entry key="..\:/Github/safeconnect/app/src/main/res/layout/device_list_item.xml" value="0.16770833333333332" />
         <entry key="..\:/Github/safeconnect/app/src/main/res/layout/devicelist.xml" value="0.16770833333333332" />

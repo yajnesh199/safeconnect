@@ -9,10 +9,10 @@ import java.util.Date;
 @Entity
 public class User {
     @PrimaryKey(autoGenerate = true)
-    public int slNo;
+    public Integer slNo;
 
     @ColumnInfo(name = "receiver_id")
-    public int receiverID;
+    public Integer receiverID;
 
     @ColumnInfo(name = "message")
     public String messageInfo;

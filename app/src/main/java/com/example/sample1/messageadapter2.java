@@ -24,7 +24,6 @@ public class messageadapter2  extends RecyclerView.Adapter<chatviewholder> {
             // Show received message in left linearlayout.
             holder.leftMsgLayout.setVisibility(LinearLayout.VISIBLE);
             holder.leftMsgTextView.setText(msgDto.getMsgContent());
-
             holder.rightMsgLayout.setVisibility(LinearLayout.GONE);
         }
         // If the message is a sent message.

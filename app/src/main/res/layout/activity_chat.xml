@@ -7,8 +7,13 @@
     tools:context=".chatActivity"
     android:background="@color/lightyellow">
 
+    <include
+        layout="@layout/chattoolbar"
+        android:id="@+id/chattoolbar"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recview"
+        android:layout_below="@+id/chattoolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
        />
@@ -25,7 +30,7 @@
         android:orientation="horizontal">
         <EditText
             android:id="@+id/chat_input_msg"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="55dp"
             android:layout_weight="1"
             android:hint="Type a message.."/>
