@@ -27,6 +27,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.melegy.redscreenofdeath.RedScreenOfDeath;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,18 +38,29 @@ public class chatActivity extends AppCompatActivity {
     ImageButton msgSendButton;
     EditText msgInputText;
     TextView right_msg_text;
+    String BT_address;
+    String BT_Address;
+    String BT_name;
     // private  int lastposition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        RedScreenOfDeath.init(getApplication());
         set_up_action_and_status_bar();
-        String str = getIntent().getStringExtra("key");
-        Toast.makeText(this, "id " + str, Toast.LENGTH_SHORT).show();
+       BT_address = getIntent().getStringExtra("key");
+        Toast.makeText(this, "" + BT_address, Toast.LENGTH_SHORT).show();
+        Log.e("str","str" + BT_address);
         ImageView toolbaricon = findViewById(R.id.toolbar_icon);
         TextView toolbartitle = findViewById(R.id.toolbar_title);
         right_msg_text = findViewById(R.id.chat_right_msg_text_view);
+//
+//        SharedPreferences sh = getSharedPreferences("MySharedPref",MODE_PRIVATE);
+//        BT_name= sh.getString("name"," ");
+//        BT_Address= sh.getString("address"," ");
+//        Log.e("Chat_BT","Address" + BT_Address);
+
         toolbaricon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,18 +69,6 @@ public class chatActivity extends AppCompatActivity {
             }
         });
 
-//        btnsend = findViewById(R.id.btnsend);
-//        editText = findViewById(R.id.textInput);
-//        ArrayList<messagemodel> messagesList = new ArrayList<>();
-//        for (int i=0;i<10;i++) {
-//            messagesList.add(new messagemodel("Hi", i % 2 == 0 ? messageadapter.MESSAGE_TYPE_IN : messageadapter.MESSAGE_TYPE_OUT));
-//        }
-//
-//        messageadapter adapter = new messageadapter(this, messagesList);
-//
-//        recyclerView = findViewById(R.id.chatrecycleview);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setAdapter(adapter);
         msgRecyclerView = findViewById(R.id.recview);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setSmoothScrollbarEnabled(true);
@@ -96,6 +97,7 @@ public class chatActivity extends AppCompatActivity {
         msgSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                insertroomdb();
                 String msgContent = msgInputText.getText().toString();
                 if (!TextUtils.isEmpty(msgContent)) {
                     messagemodel2 msgDto = new messagemodel2(messagemodel2.MSG_TYPE_SENT, msgContent);
@@ -107,16 +109,28 @@ public class chatActivity extends AppCompatActivity {
                     MsgAdapter.notifyItemInserted(newMsgPosition);
                     msgRecyclerView.scrollToPosition(newMsgPosition);
                     msgInputText.setText("");
+
                 }
             }
         });
     }
-//    public  void insertroomdb(){
-//        database  db = Room.databaseBuilder(chatActivity.this,
-//                database.class, "chat_DB").allowMainThreadQueries().build();
-//        UserDoa userdao = db.userDao();
-//        userdao.insertAll(new User(parseInt(null),parseInt(null),right_msg_text.getText().toString(),null,null,null));
-//    }
+    public  void insertroomdb(){
+        Log.e("M", "msg ");
+        database  db = Room.databaseBuilder(chatActivity.this,
+                database.class, "chat_Database").allowMainThreadQueries().build();
+        UserDoa userdao = db.userDao();
+        userdao.insertAll(new User(parseInt("17"),BT_address,msgInputText.getText().toString(),null,null,null));
+    }
+
+    public void getroomdata() {
+        database db = Room.databaseBuilder(getApplicationContext(),
+                database.class, "Chat_Database").allowMainThreadQueries().build();
+        UserDoa userdao = db.userDao();
+        msgRecyclerView.setLayoutManager(new LinearLayoutManager(chatActivity.this));
+        List<User> users = userdao.getallusers();
+       // messageadapter2 messageadapter2=new messageadapter2(users);
+       //msgRecyclerView.setAdapter(messageadapter2);
+    }
 
 //        public  void send(){
 //        btnsend.setOnClickListener(new View.OnClickListener() {
@@ -156,4 +170,6 @@ public class chatActivity extends AppCompatActivity {
 //        e.putInt("lastpos",lastposition);
 //        e.apply();
 //    }
+
+
 }

@@ -337,6 +337,7 @@ public class ListBluetooth extends AppCompatActivity {
                         for (BluetoothDevice device : devices) {
                             bluetoothDevices[index] = device;
                             strings[index] = device.getName();
+                            strings[index] = device.getAddress();
                             index++;
                         }
                         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, strings);
@@ -478,7 +479,7 @@ public class ListBluetooth extends AppCompatActivity {
             try {
                 if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
                     socket = device.createRfcommSocketToServiceRecord(MY_UUID);
-                    Log.e(TAG, "setting up server" + device);
+                    Log.e(TAG, "setting up " + device);
                 }
             } catch (IOException e) {
                 e.printStackTrace();

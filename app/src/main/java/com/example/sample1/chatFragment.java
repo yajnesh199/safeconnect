@@ -1,9 +1,12 @@
 package com.example.sample1;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -32,15 +35,15 @@ import java.util.Set;
 
 
 public class chatFragment extends Fragment {
-//    private ListView lispairedevice;
+    //    private ListView lispairedevice;
 //    private ArrayAdapter<String> adapterpaired, adapteraivalable;
 //    private ProgressBar progresscandevice;
     private BluetoothAdapter bluetoothAdapter;
     BluetoothDevice[] bluetoothDevices;
     RecyclerView recyclerView;
-   chatadapter adapter;
+    chatadapter adapter;
     ArrayList<String> stringList = new ArrayList<>();
-
+    SharedPreferences sharedPreferences ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,12 +90,19 @@ public class chatFragment extends Fragment {
             Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
             if (pairedDevices != null && pairedDevices.size() > 0) {
                 for (BluetoothDevice device : pairedDevices) {
+//                    sharedPreferences = getActivity().getSharedPreferences("MySharedPref", MODE_PRIVATE);
+//                    SharedPreferences.Editor myEdit = sharedPreferences.edit();
+//                    myEdit.commit();
+//                    myEdit.putString("name", device.getName());
+//                    myEdit.putString("address", device.getAddress());
                     stringList.add(device.getName() + "\n" + device.getAddress());
-                    Log.e("BT","device" + device.getName());
+                  //  stringList.add(device.getAddress());
+                    Log.e("BT", "device" + device.getName());
                 }
 //                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1);
-//                 listView.setAdapter(arrayAdapter
+//                 listView.setAdapter(arrayAdapter)
                 recyclerView.setAdapter(adapter);
+
             }
             adapter.notifyDataSetChanged();
         }

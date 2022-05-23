@@ -34,9 +34,20 @@ public class chatadapter extends RecyclerView.Adapter<chatadapter.myviewholder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull myviewholder holder, int position) {
+    public void onBindViewHolder(@NonNull myviewholder holder, @SuppressLint("RecyclerView") int position) {
         //String data = stringList.get(position);
         holder.tvv_paired.setText(stringList.get(position).toString());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e("M","n" + position);
+                //  String id=tvv_paired.getText().toString();
+                //  Log.e("bt_id","he " + id);
+                Intent intent = new Intent(view.getContext(),chatActivity.class);
+                intent.putExtra("key", " " + stringList.get(position));
+                view.getContext().startActivity(intent);
+            }
+        });
 
     }
 
@@ -51,13 +62,15 @@ public class chatadapter extends RecyclerView.Adapter<chatadapter.myviewholder> 
         public myviewholder(@NonNull View itemView) {
             super(itemView);
             tvv_paired = itemView.findViewById(R.id.tvv_paired);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(view.getContext(), chatActivity.class);
-                    view.getContext().startActivity(intent);
-                }
-            });
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Intent intent = new Intent(view.getContext(), chatActivity.class);
+//                    intent.putExtra("key", "value ");
+//                    view.getContext().startActivity(intent);
+//
+//                }
+//            });
         }
     }
 }

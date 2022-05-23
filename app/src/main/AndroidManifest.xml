@@ -21,9 +21,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Sample1">
-        <activity
-            android:name=".Roomdb"
-            android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".Roomdb"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".chatActivity"
             android:exported="false" />
