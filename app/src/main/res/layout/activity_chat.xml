@@ -11,12 +11,18 @@
         layout="@layout/chattoolbar"
         android:id="@+id/chattoolbar"/>
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_above="@+id/cardviewchat"
+    android:id="@+id/linearchatview">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recview"
-        android:layout_below="@+id/chattoolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-       />
+         />
+</LinearLayout>
+
 <androidx.cardview.widget.CardView
     android:layout_width="match_parent"
     android:layout_height="50dp"

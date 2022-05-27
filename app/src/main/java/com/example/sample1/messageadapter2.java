@@ -1,5 +1,7 @@
 package com.example.sample1;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +14,16 @@ import java.util.List;
 
 public class messageadapter2  extends RecyclerView.Adapter<chatviewholder> {
     private List<messagemodel2> msgDtoList=null;
+    SharedPreferences sharedPreferences;
+    Context context;
+    String my_id;
     public messageadapter2(List<messagemodel2> msgDtoList) {
         this.msgDtoList = msgDtoList;
     }
     @Override
     public void onBindViewHolder(chatviewholder holder, int position) {
+//        SharedPreferences sh = context.getSharedPreferences("MySharedPref",Context.MODE_PRIVATE);
+//        my_id=sh.getString("string_id"," ");
         messagemodel2 msgDto = this.msgDtoList.get(position);
         // If the message is a received message.
         if(msgDto.MSG_TYPE_RECEIVED.equals(msgDto.getMsgType()))

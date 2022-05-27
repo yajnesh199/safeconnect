@@ -93,7 +93,6 @@ public class chatFragment extends Fragment {
 //                    sharedPreferences = getActivity().getSharedPreferences("MySharedPref", MODE_PRIVATE);
 //                    SharedPreferences.Editor myEdit = sharedPreferences.edit();
 //                    myEdit.commit();
-//                    myEdit.putString("name", device.getName());
 //                    myEdit.putString("address", device.getAddress());
                     stringList.add(device.getName() + "\n" + device.getAddress());
                   //  stringList.add(device.getAddress());

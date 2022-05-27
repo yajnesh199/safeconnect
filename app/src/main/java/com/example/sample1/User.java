@@ -14,6 +14,9 @@ public class User {
     @ColumnInfo(name = "receiver_id")
     public String receiverID;
 
+    @ColumnInfo(name = "sender_id")
+    public String senderID;
+
     @ColumnInfo(name = "message")
     public String messageInfo;
 
@@ -26,20 +29,21 @@ public class User {
     @ColumnInfo(name = "send_to")
     public String sendTo;
 
-    public User(int slNo, String receiverID, String messageInfo, String messageDatetime, String receivedFrom, String sendTo) {
+    public User(Integer slNo, String receiverID,String senderID, String messageInfo, String messageDatetime, String receivedFrom, String sendTo) {
         this.slNo = slNo;
         this.receiverID = receiverID;
+        this.senderID=senderID;
         this.messageInfo = messageInfo;
         this.messageDatetime = messageDatetime;
         this.receivedFrom = receivedFrom;
         this.sendTo = sendTo;
     }
 
-    public int getSlNo() {
+    public Integer getSlNo() {
         return slNo;
     }
 
-    public void setSlNo(int slNo) {
+    public void setSlNo(Integer slNo) {
         this.slNo = slNo;
     }
 
@@ -50,6 +54,11 @@ public class User {
     public void setReceiverID(String receiverID) {
         this.receiverID = receiverID;
     }
+
+    public String getSenderID() { return senderID; }
+
+    public void setSenderID(String senderID) { this.senderID = senderID; }
+
 
     public String getMessageInfo() {
         return messageInfo;

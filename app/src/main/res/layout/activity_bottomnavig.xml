@@ -18,21 +18,21 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        app:iconSize="24dp"
         app:backgroundColor="@color/white"
+        app:iconSize="24dp"
         app:iconTint="@color/light_blue"
-        app:indicatorRadius="15dp"
-        app:sideMargins="10dp"
-        app:textSize="14sp"
-        app:itemPadding="10dp"
-        app:textColor="@color/white"
         app:iconTintActive="@color/white"
         app:indicatorColor="@color/light_blue"
-        app:menu="@menu/bottom_navigmenu">
+        app:indicatorRadius="15dp"
+        app:itemPadding="10dp"
+        app:menu="@menu/bottom_navigmenu"
+        app:sideMargins="10dp"
+        app:textColor="@color/white"
+        app:textSize="14sp">
 
-<!--    <ActionMenuView-->
-<!--        android:id="@+id/menu"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content" />-->
+        <!--    <ActionMenuView-->
+        <!--        android:id="@+id/menu"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content" />-->
     </me.ibrahimsn.lib.SmoothBottomBar>
 </RelativeLayout>

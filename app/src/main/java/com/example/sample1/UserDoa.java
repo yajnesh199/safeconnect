@@ -15,4 +15,7 @@ public interface UserDoa {
 
     @Query("SELECT * FROM User")
     List<User> getallusers();
+
+    @Query("SELECT * FROM User where receiver_id= :user_id OR sender_id= :user_id")
+    List<User> getchat(String user_id);
 }
