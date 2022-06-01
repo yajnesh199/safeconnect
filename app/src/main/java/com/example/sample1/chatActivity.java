@@ -3,9 +3,11 @@ package com.example.sample1;
 import static java.lang.Integer.parseInt;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
@@ -19,10 +21,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -35,6 +42,8 @@ import android.widget.Toast;
 
 import com.melegy.redscreenofdeath.RedScreenOfDeath;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,7 +52,7 @@ import java.util.List;
 public class chatActivity extends AppCompatActivity {
     RecyclerView msgRecyclerView;
     recycleadapter recycleadapter;
-    ImageButton msgSendButton;
+    ImageView msgSendButton, chat_image, image1;
     EditText msgInputText;
     TextView right_msg_text;
     String BT_address;
@@ -51,10 +60,14 @@ public class chatActivity extends AppCompatActivity {
     String BT_name;
     String Sender_id;
     String my_id;
+    int SELECT_PICTURE = 200;
     BluetoothAdapter bluetoothAdapter;
     ChatadapterDoa chatadapterDoa;
-   // List<User> users;
+    // List<User> users;
     int newMsgPosition;
+    String image;
+    Bitmap bitmap;
+    SharedPreferences sharedPreferences;
 
 
     @Override
@@ -69,18 +82,24 @@ public class chatActivity extends AppCompatActivity {
         ImageView toolbaricon = findViewById(R.id.toolbar_icon);
         TextView toolbartitle = findViewById(R.id.toolbar_title);
         right_msg_text = findViewById(R.id.chat_right_msg_text_view);
-    //    SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
-//        BT_name = sh.getString("name", " ");
-//        Sender_id = sh.getString("address", " ");
-      //  my_id = sh.getString("string_id", " ");
+
+        SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        BT_name = sh.getString("name", " ");
+        Sender_id = sh.getString("address", " ");
+        my_id = sh.getString("string_id", " ");
         Log.e("Chat_BT", "Address" + Sender_id);
-        toolbaricon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(chatActivity.this, bottomnavig.class);
-                startActivity(intent);
-            }
-        });
+//        toolbaricon.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(chatActivity.this, bottomnavig.class);
+//                startActivity(intent);
+//            }
+//        });
+        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+            Sender_id = bluetoothAdapter.getAddress();
+        }
+
         msgRecyclerView = findViewById(R.id.recview);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setSmoothScrollbarEnabled(true);
@@ -98,21 +117,38 @@ public class chatActivity extends AppCompatActivity {
 //                Log.e("M","msgposition " + lastposition);
 //            }
 //        });
+
         final List<messagemodel2> msgDtoList = new ArrayList<messagemodel2>();
-        //final List<User> msgDtoList = new ArrayList<User>();
+        //  final List<User> msgDtoList = new ArrayList<User>();
         messagemodel2 msgDto = new messagemodel2(messagemodel2.MSG_TYPE_RECEIVED, "hello");
-        msgDtoList.add(msgDto);
+        //     msgDtoList.add(msgDto);
         final messageadapter2 MsgAdapter = new messageadapter2(msgDtoList);
-        //final  ChatadapterDoa MsgAdapter = new ChatadapterDoa();
+        //   final  ChatadapterDoa MsgAdapter = new ChatadapterDoa();
         msgRecyclerView.setAdapter(MsgAdapter);
         // linearLayoutManager.smoothScrollToPosition(msgRecyclerView, null, 1);
+        chat_image = findViewById(R.id.chat_camera);
+        //image1 = findViewById(R.id.image1);
         msgInputText = findViewById(R.id.chat_input_msg);
         msgSendButton = findViewById(R.id.chat_send_msg);
+        chat_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ContextCompat.checkSelfPermission(chatActivity.this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(chatActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
+                } else {
+                    loadimage();
+                }
+
+            }
+        });
         msgSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               insertroomdb();
-               getroomdata();
+                insertroomdb();
+                getroomdata();
+               //stringtobitmap();
+                //bitmaptostring();
 //                String msgContent = msgInputText.getText().toString();
 //                if (!TextUtils.isEmpty(msgContent)) {
 //                    messagemodel2 msgDto = new messagemodel2(messagemodel2.MSG_TYPE_SENT, msgContent);
@@ -125,6 +161,7 @@ public class chatActivity extends AppCompatActivity {
 //                    msgRecyclerView.scrollToPosition(newMsgPosition);
 //                       msgInputText.setText("");
 //                }
+                //  stringtobitmap();
 
                 String msgContent = msgInputText.getText().toString();
                 if (!TextUtils.isEmpty(msgContent)) {
@@ -139,6 +176,9 @@ public class chatActivity extends AppCompatActivity {
 
     @SuppressLint("MissingPermission")
     public void insertroomdb() {
+        byte[] bytes = Base64.decode(image, Base64.DEFAULT);
+         bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        Log.e("tag", "m" + bitmap);
         Log.e("M", "msg ");
         database db = Room.databaseBuilder(chatActivity.this,
                 database.class, "Chat-table").allowMainThreadQueries().build();
@@ -146,21 +186,25 @@ public class chatActivity extends AppCompatActivity {
         Sender_id = bluetoothAdapter.getAddress();
         Log.e("h", "h" + Sender_id);
         UserDoa userdao = db.userDao();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM ,yyyy HH:mm:ss ");
+        // SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM ,yyyy HH:mm:ss ");
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
         String strDate = formatter.format(new Date().getTime());
         // userdao.insertAll(new User(parseInt("74"),BT_address,Sender_id,msgInputText.getText().toString(), strDate, null, null));
-        userdao.insertAll(new User(null,Sender_id, BT_address, msgInputText.getText().toString(), strDate, null, null));
+        userdao.insertAll(new User(null,Sender_id,BT_address, msgInputText.getText().toString(), strDate, null, null));
     }
 
     public void getroomdata() {
+
+        ///image1.setImageBitmap(bitmap);
+
         database db = Room.databaseBuilder(getApplicationContext(),
                 database.class, "Chat-table").allowMainThreadQueries().build();
         msgRecyclerView = findViewById(R.id.recview);
         msgRecyclerView.setLayoutManager(new LinearLayoutManager(chatActivity.this));
         UserDoa userdao = db.userDao();
         List<User> users = userdao.getallusers();
-        //List<User> users = userdao.getchat(Sender_id);
-        chatadapterDoa = new ChatadapterDoa(users, Sender_id);
+        //List<User> users = userdao.getchat(BT_address);
+        chatadapterDoa = new ChatadapterDoa(users, Sender_id,bitmap);
         msgRecyclerView.setAdapter(chatadapterDoa);
         newMsgPosition = users.size() - 1;
         chatadapterDoa.notifyDataSetChanged();
@@ -170,7 +214,45 @@ public class chatActivity extends AppCompatActivity {
 //       msgRecyclerView.setAdapter(messageadapter2);
 
         //  Log.e("tag","postion" + newMsgPosition);
-        Log.e("List", "List" + users);
+        // Log.e("List", "List" + users);
+
+    }
+
+    //
+    public void stringtobitmap() {
+
+//        sharedPreferences = getSharedPreferences("MyShared", Context.MODE_PRIVATE);
+//        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+//        myEdit.putString("bitmap", String.valueOf(bitmap));
+//        myEdit.commit();
+//        Intent intent = new Intent();
+//        intent.setClass(chatActivity.this,ChatadapterDoa.class);
+//        intent.putExtra("key"," "+ bitmap);
+//        startActivity(intent);
+    }
+
+    private void loadimage() {
+//        Intent i = new Intent();
+//        i.setType("image/*");
+//        i.setAction(Intent.ACTION_GET_CONTENT);
+//        startActivityForResult(Intent.createChooser(i, "select"), SELECT_PICTURE);
+//        textView.setText("");
+//        imageView.setImageBitmap(null);
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        // start activity result
+        startActivityForResult(Intent.createChooser(intent, "Select Image"), 100);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 100 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            loadimage();
+        } else {
+            Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
+        }
     }
 
 //        public  void send(){
@@ -211,5 +293,28 @@ public class chatActivity extends AppCompatActivity {
 //        e.putInt("lastpos",lastposition);
 //        e.apply();
 //    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
+            Uri uri = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 40, stream);
+                byte[] bytes = stream.toByteArray();
+                image = Base64.encodeToString(bytes, Base64.DEFAULT);
+                Log.e("img", "l" + image);
+//                sharedPreferences = getSharedPreferences("MyShared", Context.MODE_PRIVATE);
+//                 SharedPreferences.Editor myEdit = sharedPreferences.edit();
+//                myEdit.putString("bitmap", image);
+//                 myEdit.commit();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }

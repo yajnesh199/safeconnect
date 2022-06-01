@@ -23,20 +23,24 @@ public class User {
     @ColumnInfo(name = "message_datetime")
     public String messageDatetime;
 
-    @ColumnInfo(name = "received_from")
-    public String receivedFrom;
-
+//    @ColumnInfo(name = "received_from")
+//    public String receivedFrom;
+//
     @ColumnInfo(name = "send_to")
     public String sendTo;
 
-    public User(Integer slNo, String receiverID,String senderID, String messageInfo, String messageDatetime, String receivedFrom, String sendTo) {
+    @ColumnInfo(name = "image_list")
+    public  String imageList;
+
+    public User(Integer slNo, String receiverID,String senderID, String messageInfo, String messageDatetime, String sendTo,String imageList) {
         this.slNo = slNo;
         this.receiverID = receiverID;
         this.senderID=senderID;
         this.messageInfo = messageInfo;
         this.messageDatetime = messageDatetime;
-        this.receivedFrom = receivedFrom;
+     //   this.receivedFrom = receivedFrom;
         this.sendTo = sendTo;
+        this.imageList=imageList;
     }
 
     public Integer getSlNo() {
@@ -76,13 +80,13 @@ public class User {
         this.messageDatetime = messageDatetime;
     }
 
-    public String getReceivedFrom() {
-        return receivedFrom;
-    }
-
-    public void setReceivedFrom(String receivedFrom) {
-        this.receivedFrom = receivedFrom;
-    }
+//    public String getReceivedFrom() {
+//        return receivedFrom;
+//    }
+//
+//    public void setReceivedFrom(String receivedFrom) {
+//        this.receivedFrom = receivedFrom;
+//    }
 
     public String getSendTo() {
         return sendTo;
@@ -90,5 +94,13 @@ public class User {
 
     public void setSendTo(String sendTo) {
         this.sendTo = sendTo;
+    }
+
+    public String getImageList() {
+        return imageList;
+    }
+
+    public void setImageList(String imageList) {
+        this.imageList = imageList;
     }
 }
