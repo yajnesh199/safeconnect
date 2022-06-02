@@ -60,15 +60,11 @@ public class chatActivity extends AppCompatActivity {
     String BT_name;
     String Sender_id;
     String my_id;
-    int SELECT_PICTURE = 200;
     BluetoothAdapter bluetoothAdapter;
     ChatadapterDoa chatadapterDoa;
-    // List<User> users;
     int newMsgPosition;
     String image;
-    Bitmap bitmap;
-    SharedPreferences sharedPreferences;
-
+    int flag = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,9 +141,10 @@ public class chatActivity extends AppCompatActivity {
         msgSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Flag=1;
                 insertroomdb();
                 getroomdata();
-               //stringtobitmap();
+                //  stringtobitmap();
                 //bitmaptostring();
 //                String msgContent = msgInputText.getText().toString();
 //                if (!TextUtils.isEmpty(msgContent)) {
@@ -162,7 +159,6 @@ public class chatActivity extends AppCompatActivity {
 //                       msgInputText.setText("");
 //                }
                 //  stringtobitmap();
-
                 String msgContent = msgInputText.getText().toString();
                 if (!TextUtils.isEmpty(msgContent)) {
                     Log.e("M", "msgposition " + newMsgPosition);
@@ -176,9 +172,6 @@ public class chatActivity extends AppCompatActivity {
 
     @SuppressLint("MissingPermission")
     public void insertroomdb() {
-        byte[] bytes = Base64.decode(image, Base64.DEFAULT);
-         bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        Log.e("tag", "m" + bitmap);
         Log.e("M", "msg ");
         database db = Room.databaseBuilder(chatActivity.this,
                 database.class, "Chat-table").allowMainThreadQueries().build();
@@ -186,25 +179,22 @@ public class chatActivity extends AppCompatActivity {
         Sender_id = bluetoothAdapter.getAddress();
         Log.e("h", "h" + Sender_id);
         UserDoa userdao = db.userDao();
-        // SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM ,yyyy HH:mm:ss ");
-        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+         SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM ,yyyy HH:mm:ss ");
+     //   SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
         String strDate = formatter.format(new Date().getTime());
-        // userdao.insertAll(new User(parseInt("74"),BT_address,Sender_id,msgInputText.getText().toString(), strDate, null, null));
-        userdao.insertAll(new User(null,Sender_id,BT_address, msgInputText.getText().toString(), strDate, null, null));
+        //userdao.insertAll(new User(parseInt("74"),BT_address,Sender_id,msgInputText.getText().toString(), strDate, null, null));
+          userdao.insertAll(new User(null,BT_address, Sender_id, msgInputText.getText().toString(), strDate, null, image));
+        //userdao.insertAll(new User(null, Sender_id, BT_address, msgInputText.getText().toString(), strDate, null, image));
     }
 
     public void getroomdata() {
-
-        ///image1.setImageBitmap(bitmap);
-
-        database db = Room.databaseBuilder(getApplicationContext(),
-                database.class, "Chat-table").allowMainThreadQueries().build();
+        database db = Room.databaseBuilder(getApplicationContext(), database.class, "Chat-table").allowMainThreadQueries().build();
         msgRecyclerView = findViewById(R.id.recview);
         msgRecyclerView.setLayoutManager(new LinearLayoutManager(chatActivity.this));
         UserDoa userdao = db.userDao();
         List<User> users = userdao.getallusers();
         //List<User> users = userdao.getchat(BT_address);
-        chatadapterDoa = new ChatadapterDoa(users, Sender_id,bitmap);
+        chatadapterDoa = new ChatadapterDoa(users, Sender_id);
         msgRecyclerView.setAdapter(chatadapterDoa);
         newMsgPosition = users.size() - 1;
         chatadapterDoa.notifyDataSetChanged();
@@ -218,18 +208,6 @@ public class chatActivity extends AppCompatActivity {
 
     }
 
-    //
-    public void stringtobitmap() {
-
-//        sharedPreferences = getSharedPreferences("MyShared", Context.MODE_PRIVATE);
-//        SharedPreferences.Editor myEdit = sharedPreferences.edit();
-//        myEdit.putString("bitmap", String.valueOf(bitmap));
-//        myEdit.commit();
-//        Intent intent = new Intent();
-//        intent.setClass(chatActivity.this,ChatadapterDoa.class);
-//        intent.putExtra("key"," "+ bitmap);
-//        startActivity(intent);
-    }
 
     private void loadimage() {
 //        Intent i = new Intent();
@@ -299,6 +277,7 @@ public class chatActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
+            flag=1;
             Uri uri = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
@@ -314,6 +293,7 @@ public class chatActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
         }
     }
 

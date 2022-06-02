@@ -9,10 +9,12 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class chatviewholder extends RecyclerView.ViewHolder {
-    RelativeLayout leftMsgLayout;
-    RelativeLayout rightMsgLayout;
-    LinearLayout leftImageLayout;
-    LinearLayout rightImageLayout;
+  LinearLayout leftMsgLayout;
+   LinearLayout rightMsgLayout;
+//    LinearLayout leftImageLayout;
+//    LinearLayout rightImageLayout;
+//    RelativeLayout chat_right_relativeLayout;
+//    RelativeLayout chat_left_relativeLayout;
     TextView leftMsgTextView;
     TextView rightMsgTextView;
     TextView righttimeview;
@@ -24,8 +26,10 @@ public class chatviewholder extends RecyclerView.ViewHolder {
         if(itemView!=null) {
             leftMsgLayout =  itemView.findViewById(R.id.chat_left_msg_layout);
             rightMsgLayout =  itemView.findViewById(R.id.chat_right_msg_layout);
-            leftImageLayout=itemView.findViewById(R.id.image_linear_layout1);
-            rightImageLayout=itemView.findViewById(R.id.image_linear_layout2);
+//            leftImageLayout=itemView.findViewById(R.id.image_linear_layout1);
+//            rightImageLayout=itemView.findViewById(R.id.image_linear_layout2);
+//            chat_right_relativeLayout=itemView.findViewById(R.id.chat_right_relativeLayout);
+//            chat_left_relativeLayout=itemView.findViewById(R.id.chat_left_relativeLayout);
             leftMsgTextView = itemView.findViewById(R.id.chat_left_msg_text_view);
             rightMsgTextView =  itemView.findViewById(R.id.chat_right_msg_text_view);
             righttimeview=itemView.findViewById(R.id.chat_right_time_view);

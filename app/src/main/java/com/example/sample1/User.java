@@ -40,7 +40,7 @@ public class User {
         this.messageDatetime = messageDatetime;
      //   this.receivedFrom = receivedFrom;
         this.sendTo = sendTo;
-        this.imageList=imageList;
+         this.imageList=imageList;
     }
 
     public Integer getSlNo() {
