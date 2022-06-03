@@ -6,17 +6,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import me.ibrahimsn.lib.OnItemSelectedListener;
 import me.ibrahimsn.lib.SmoothBottomBar;
 
 public class bottomnavig extends AppCompatActivity {
     SmoothBottomBar smoothBottomBar;
+    TextView toolbartitle;
+    ImageView toolbarback;
   pairedFragment first=new pairedFragment();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +30,16 @@ public class bottomnavig extends AppCompatActivity {
         setContentView(R.layout.activity_bottomnavig);
         // menu=findViewById(R.id.menu);
         smoothBottomBar = findViewById(R.id.bottomBar);
+         toolbartitle = findViewById(R.id.toolbar_Fragment_title);
+         toolbarback=findViewById(R.id.toolbar_icon);
+        toolbarback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(bottomnavig.this, Login_Activity.class);
+                startActivity(intent);
+            }
+        });
+        toolbartitle.setText(R.string.Paired);
         //  bottomNavigationView.setSelectedItemId(R.id.Image);
         Log.e("h", "fragment");
           getSupportFragmentManager().beginTransaction().replace(R.id.container, first).commit();
@@ -100,12 +115,15 @@ public class bottomnavig extends AppCompatActivity {
                 switch (i) {
                     case 0:
                         replcae(new pairedFragment());
+                        toolbartitle.setText(R.string.Paired);
                         break;
                     case 1:
                         replcae(new chatFragment());
+                        toolbartitle.setText(R.string.Chat);
                         break;
                     case 2:
                         replcae(new profileFragment());
+                        toolbartitle.setText(R.string.Profile);
                         break;
                 }
                 return false;

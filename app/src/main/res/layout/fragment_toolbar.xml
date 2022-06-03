@@ -8,21 +8,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/toolbar_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_baseline_arrow_back_24" />
-
         <TextView
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/toolbar_icon"
+            android:layout_toEndOf="@+id/toolbar_icon1"
             android:textColor="@color/white"
-            android:layout_marginStart="10dp"
             android:textSize="15sp" />
         <TextView
             android:id="@+id/toolbar_Fragment_title"
@@ -31,13 +23,12 @@
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/toolbar_icon"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            android:layout_marginStart="10dp"/>
+            android:textSize="20sp" />
     </Toolbar>
-<!--    <RelativeLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:padding="16dp">-->
+    <!--    <RelativeLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:padding="16dp">-->
 
-<!--    </RelativeLayout>-->
+    <!--    </RelativeLayout>-->
 </RelativeLayout>

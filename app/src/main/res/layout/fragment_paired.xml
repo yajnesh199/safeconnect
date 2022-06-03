@@ -5,23 +5,25 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".pairedFragment">
+
     <TextView
+        android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
         android:text="@string/str_available_device"
         android:textColor="#050505"
-        android:layout_alignParentTop="true"
-        android:id="@+id/tv_title"
         android:textSize="20sp" />
-<!--    <ListView-->
-<!--        android:id="@+id/list_available_device"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_below="@+id/tv_title"-->
-<!--        android:layout_height="match_parent" />-->
+    <!--    <ListView-->
+    <!--        android:id="@+id/list_available_device"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_below="@+id/tv_title"-->
+    <!--        android:layout_height="match_parent" />-->
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recviewpaired"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tv_title"
-        android:layout_marginTop="10dp"
-        android:id="@+id/recviewpaired"/>
+        android:layout_marginTop="10dp" />
 </RelativeLayout>

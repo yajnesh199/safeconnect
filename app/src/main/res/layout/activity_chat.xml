@@ -4,19 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".chatActivity"
-    android:background="@color/lightyellow">
+    android:background="@color/lightyellow"
+    tools:context=".chatActivity">
+
+    <include
+        android:id="@+id/chat_toolbar"
+        layout="@layout/chattoolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       android:layout_alignParentTop="true"/>
+
+    <RelativeLayout
+        android:id="@+id/linearchatview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/chat_toolbar">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"/>
+
+    </RelativeLayout>
+
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardviewchat"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        app:cardCornerRadius="25dp"
-        android:id="@+id/cardviewchat">
+        app:cardCornerRadius="25dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:id="@+id/l01">
+
+
             <EditText
                 android:id="@+id/chat_input_msg"
                 android:layout_width="wrap_content"
@@ -24,43 +50,26 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="Type a message.."
-                android:padding="10dp"/>
+                android:padding="10dp" />
+
             <ImageView
+                android:id="@+id/chat_camera"
                 android:layout_width="30dp"
                 android:layout_height="50dp"
                 android:layout_marginRight="10dp"
                 android:src="@drawable/ic_baseline_camera_alt_24"
-                app:tint="@color/teal_200"
-                android:id="@+id/chat_camera"/>
+                app:tint="@color/teal_200" />
+
             <ImageView
+                android:id="@+id/chat_send_msg"
                 android:layout_width="30dp"
                 android:layout_height="50dp"
                 android:layout_marginRight="10dp"
                 android:src="@drawable/ic_baseline_send_24"
-                app:tint="@color/teal_200"
-                android:id="@+id/chat_send_msg"/>
+                app:tint="@color/teal_200" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-<!--    <include-->
-<!--        layout="@layout/chattoolbar"-->
-<!--        android:id="@+id/chattoolbar"/>-->
-
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_above="@id/cardviewchat"
-    android:id="@+id/linearchatview">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-<!--    <ImageView-->
-<!--        android:layout_width="100dp"-->
-<!--        android:layout_height="250dp"-->
-<!--        android:id="@+id/image1"/>-->
-</RelativeLayout>
 
 </RelativeLayout>
 

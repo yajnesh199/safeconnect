@@ -31,10 +31,12 @@ public class ChatadapterDoa extends RecyclerView.Adapter<chatviewholder> {
         this.msgDtoList = msgDtoList;
         this.my_id = my_id;
     }
+
     @Override
     public void onBindViewHolder(chatviewholder holder, int position) {
         User msgDto = this.msgDtoList.get(position);
-        Log.e("tag","msg" +msgDto);
+        Log.e("tag", "msg" + msgDto);
+        String val = "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$";
         if (msgDto.imageList != null) {
             byte[] bytes = Base64.decode(msgDto.imageList, Base64.DEFAULT);
             bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
@@ -65,61 +67,62 @@ public class ChatadapterDoa extends RecyclerView.Adapter<chatviewholder> {
 //        Log.e("tag","b" + bitmap);
         if (msgDto.receiverID.equalsIgnoreCase(my_id)) {
             // Show received message in left linearlayout.
-            holder.leftMsgLayout.setVisibility(LinearLayout.VISIBLE);
-            holder.leftimage.setVisibility(LinearLayout.VISIBLE);
-
-            if(msgDto.messageInfo !=null || msgDto.messageInfo.equalsIgnoreCase("null")){
+            holder.leftMsgLayout.setVisibility(View.VISIBLE);
+            holder.rightMsgLayout.setVisibility(View.GONE);
+            if (msgDto.messageInfo != null || msgDto.messageInfo.equalsIgnoreCase("null")) {
+                //if (msgDto.imageList.matches(val)) {
                 Log.e("tag", "message1" + msgDto.messageInfo);
                 holder.leftimage.setImageBitmap(bitmap);
-                holder.rightMsgLayout.setVisibility(LinearLayout.GONE);
-                holder.rightimage.setVisibility(LinearLayout.VISIBLE);
-            }else{
-
+                holder.leftimage.setVisibility(View.VISIBLE);
+                holder.leftMsgTextView.setVisibility(View.GONE);
+            } else {
                 holder.leftMsgTextView.setText(msgDto.messageInfo);
-                holder.rightMsgLayout.setVisibility(RelativeLayout.VISIBLE);
-                holder.rightimage.setVisibility(LinearLayout.GONE);
+                holder.leftimage.setVisibility(View.GONE);
+                holder.leftMsgTextView.setVisibility(View.VISIBLE);
             }
             holder.lefttimeview.setText(msgDto.messageDatetime);
             Log.e("tag", "bit" + bitmap);
 
         }
         // If the message is a sent message.
-        else if (msgDto.senderID.equalsIgnoreCase(my_id)) {
-         //  holder.rightMsgLayout.setVisibility(LinearLayout.VISIBLE);
-
+        // else if (msgDto.senderID.equalsIgnoreCase(my_id)) {
+        //   holder.rightMsgLayout.setVisibility(LinearLayout.VISIBLE);
+        else {
             // Show sent message in right linearlayout.
-
-            if(msgDto.messageInfo !=null || msgDto.messageInfo.equalsIgnoreCase("null")){
-               // holder.leftMsgLayout.setVisibility(LinearLayout.GONE);
+            holder.leftMsgLayout.setVisibility(View.GONE);
+            holder.rightMsgLayout.setVisibility(View.VISIBLE);
+            if (msgDto.messageInfo == null || msgDto.messageInfo.equalsIgnoreCase("null")) {
+                //   if (msgDto.imageList.matches(val)) {
                 Log.e("tag", "message2" + msgDto.messageInfo);
                 holder.rightimage.setImageBitmap(bitmap);
-                holder.rightimage.setVisibility(RelativeLayout.VISIBLE);
-                holder.rightMsgTextView.setVisibility(RelativeLayout.GONE);
-                Log.e("tag","bit" + bitmap);
-//               holder.leftimage.setVisibility(LinearLayout.VISIBLE);
-//                holder.leftMsgLayout.setVisibility(LinearLayout.GONE);
-                holder.leftimage.setVisibility(LinearLayout.GONE);
-                holder.leftMsgTextView.setVisibility(RelativeLayout.GONE);
-                holder.lefttimeview.setVisibility(RelativeLayout.GONE);
-            }
-            else{
+                holder.rightimage.setVisibility(View.VISIBLE);
+                holder.rightMsgTextView.setVisibility(View.GONE);
+                Log.e("tag", "bit" + bitmap);
+//                holder.leftimage.setVisibility(LinearLayout.GONE);
+//                holder.leftMsgTextView.setVisibility(RelativeLayout.GONE);
+//                holder.lefttimeview.setVisibility(RelativeLayout.GONE);
+            } else {
                 Log.e("tag", "message3" + msgDto.messageInfo);
-                holder.leftMsgLayout.setVisibility(LinearLayout.GONE);
                 holder.rightMsgTextView.setText(msgDto.messageInfo);
-                holder.leftimage.setVisibility(LinearLayout.GONE);
-                holder.leftMsgTextView.setVisibility(RelativeLayout.GONE);
-                holder.lefttimeview.setVisibility(RelativeLayout.GONE);
+                holder.rightimage.setVisibility(View.GONE);
+                holder.rightMsgTextView.setVisibility(View.VISIBLE);
+
+//                holder.leftimage.setVisibility(LinearLayout.GONE);
+//                holder.leftMsgTextView.setVisibility(RelativeLayout.GONE);
+//                holder.lefttimeview.setVisibility(RelativeLayout.GONE);
             }
             holder.righttimeview.setText(msgDto.messageDatetime);
         }
 
     }
+
     @Override
     public chatviewholder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.itemchat, parent, false);
         return new chatviewholder(view);
     }
+
     @Override
     public int getItemCount() {
         if (msgDtoList == null) {

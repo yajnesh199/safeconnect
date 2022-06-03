@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Github/safeconnect/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Github/safeconnect/app/src/main/res/drawable/background.xml" value="0.1" />
+        <entry key="..\:/Github/safeconnect/app/src/main/res/drawable/fragment_oolbar.xml" value="0.164" />
         <entry key="..\:/Github/safeconnect/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.138" />
         <entry key="..\:/Github/safeconnect/app/src/main/res/drawable/receivemsgdrawable.xml" value="0.1765" />
         <entry key="..\:/Github/safeconnect/app/src/main/res/drawable/rounded_corner.xml" value="0.1" />
@@ -27,6 +28,7 @@
         <entry key="..\:/Github/safeconnect/app/src/main/res/layout/fragment_chat.xml" value="0.16770833333333332" />
         <entry key="..\:/Github/safeconnect/app/src/main/res/layout/fragment_paired.xml" value="0.16770833333333332" />
         <entry key="..\:/Github/safeconnect/app/src/main/res/layout/fragment_profile.xml" value="0.16770833333333332" />
+        <entry key="..\:/Github/safeconnect/app/src/main/res/layout/fragment_toolbar.xml" value="0.16770833333333332" />
         <entry key="..\:/Github/safeconnect/app/src/main/res/layout/itemchat.xml" value="0.16770833333333332" />
         <entry key="..\:/Github/safeconnect/app/src/main/res/layout/itemreceive.xml" value="0.16770833333333332" />
         <entry key="..\:/Github/safeconnect/app/src/main/res/layout/itemsend.xml" value="0.16770833333333332" />

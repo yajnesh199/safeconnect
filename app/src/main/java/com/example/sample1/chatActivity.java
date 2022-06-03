@@ -84,13 +84,14 @@ public class chatActivity extends AppCompatActivity {
         Sender_id = sh.getString("address", " ");
         my_id = sh.getString("string_id", " ");
         Log.e("Chat_BT", "Address" + Sender_id);
-//        toolbaricon.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(chatActivity.this, bottomnavig.class);
-//                startActivity(intent);
-//            }
-//        });
+        toolbartitle.setText(BT_address);
+        toolbaricon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(chatActivity.this, bottomnavig.class);
+                startActivity(intent);
+            }
+        });
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
             Sender_id = bluetoothAdapter.getAddress();
@@ -114,13 +115,13 @@ public class chatActivity extends AppCompatActivity {
 //            }
 //        });
 
-        final List<messagemodel2> msgDtoList = new ArrayList<messagemodel2>();
+        //final List<messagemodel2> msgDtoList = new ArrayList<messagemodel2>();
         //  final List<User> msgDtoList = new ArrayList<User>();
-        messagemodel2 msgDto = new messagemodel2(messagemodel2.MSG_TYPE_RECEIVED, "hello");
+       // messagemodel2 msgDto = new messagemodel2(messagemodel2.MSG_TYPE_RECEIVED, "hello");
         //     msgDtoList.add(msgDto);
-        final messageadapter2 MsgAdapter = new messageadapter2(msgDtoList);
+       // final messageadapter2 MsgAdapter = new messageadapter2(msgDtoList);
         //   final  ChatadapterDoa MsgAdapter = new ChatadapterDoa();
-        msgRecyclerView.setAdapter(MsgAdapter);
+       // msgRecyclerView.setAdapter(MsgAdapter);
         // linearLayoutManager.smoothScrollToPosition(msgRecyclerView, null, 1);
         chat_image = findViewById(R.id.chat_camera);
         //image1 = findViewById(R.id.image1);
@@ -138,12 +139,19 @@ public class chatActivity extends AppCompatActivity {
 
             }
         });
+//        if (msgInputText.getText().toString().equals("")){
+//            msgSendButton.setEnabled(false);
+//        }
+//        else{
+//            msgSendButton.setEnabled(true);
+//        }
+
         msgSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Flag=1;
-                insertroomdb();
-                getroomdata();
+
+
                 //  stringtobitmap();
                 //bitmaptostring();
 //                String msgContent = msgInputText.getText().toString();
@@ -159,6 +167,8 @@ public class chatActivity extends AppCompatActivity {
 //                       msgInputText.setText("");
 //                }
                 //  stringtobitmap();
+                insertroomdb();
+                getroomdata();
                 String msgContent = msgInputText.getText().toString();
                 if (!TextUtils.isEmpty(msgContent)) {
                     Log.e("M", "msgposition " + newMsgPosition);
@@ -183,7 +193,7 @@ public class chatActivity extends AppCompatActivity {
      //   SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
         String strDate = formatter.format(new Date().getTime());
         //userdao.insertAll(new User(parseInt("74"),BT_address,Sender_id,msgInputText.getText().toString(), strDate, null, null));
-          userdao.insertAll(new User(null,BT_address, Sender_id, msgInputText.getText().toString(), strDate, null, image));
+        userdao.insertAll(new User(null,BT_address, Sender_id,msgInputText.getText().toString(), strDate, null, image));
         //userdao.insertAll(new User(null, Sender_id, BT_address, msgInputText.getText().toString(), strDate, null, image));
     }
 
