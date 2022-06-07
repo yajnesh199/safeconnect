@@ -1,5 +1,6 @@
 package com.example.sample1;
 
+import static android.content.ContentValues.TAG;
 import static java.lang.Integer.parseInt;
 
 import androidx.annotation.NonNull;
@@ -15,7 +16,10 @@ import androidx.room.Room;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
+import android.bluetooth.BluetoothServerSocket;
+import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +30,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -48,6 +53,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class chatActivity extends AppCompatActivity {
     RecyclerView msgRecyclerView;
@@ -64,7 +70,6 @@ public class chatActivity extends AppCompatActivity {
     ChatadapterDoa chatadapterDoa;
     int newMsgPosition;
     String image;
-    int flag = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +83,8 @@ public class chatActivity extends AppCompatActivity {
         ImageView toolbaricon = findViewById(R.id.toolbar_icon);
         TextView toolbartitle = findViewById(R.id.toolbar_title);
         right_msg_text = findViewById(R.id.chat_right_msg_text_view);
-
+      //  ServerClass serverClass = new ServerClass();
+      //  serverClass.start();
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         BT_name = sh.getString("name", " ");
         Sender_id = sh.getString("address", " ");
@@ -117,11 +123,11 @@ public class chatActivity extends AppCompatActivity {
 
         //final List<messagemodel2> msgDtoList = new ArrayList<messagemodel2>();
         //  final List<User> msgDtoList = new ArrayList<User>();
-       // messagemodel2 msgDto = new messagemodel2(messagemodel2.MSG_TYPE_RECEIVED, "hello");
+        // messagemodel2 msgDto = new messagemodel2(messagemodel2.MSG_TYPE_RECEIVED, "hello");
         //     msgDtoList.add(msgDto);
-       // final messageadapter2 MsgAdapter = new messageadapter2(msgDtoList);
+        // final messageadapter2 MsgAdapter = new messageadapter2(msgDtoList);
         //   final  ChatadapterDoa MsgAdapter = new ChatadapterDoa();
-       // msgRecyclerView.setAdapter(MsgAdapter);
+        // msgRecyclerView.setAdapter(MsgAdapter);
         // linearLayoutManager.smoothScrollToPosition(msgRecyclerView, null, 1);
         chat_image = findViewById(R.id.chat_camera);
         //image1 = findViewById(R.id.image1);
@@ -189,11 +195,11 @@ public class chatActivity extends AppCompatActivity {
         Sender_id = bluetoothAdapter.getAddress();
         Log.e("h", "h" + Sender_id);
         UserDoa userdao = db.userDao();
-         SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM ,yyyy HH:mm:ss ");
-     //   SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM ,yyyy HH:mm:ss ");
+        //   SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
         String strDate = formatter.format(new Date().getTime());
         //userdao.insertAll(new User(parseInt("74"),BT_address,Sender_id,msgInputText.getText().toString(), strDate, null, null));
-        userdao.insertAll(new User(null,BT_address, Sender_id,msgInputText.getText().toString(), strDate, null, image));
+        userdao.insertAll(new User(null, BT_address, Sender_id, msgInputText.getText().toString(), strDate, null, image));
         //userdao.insertAll(new User(null, Sender_id, BT_address, msgInputText.getText().toString(), strDate, null, image));
     }
 
@@ -217,7 +223,6 @@ public class chatActivity extends AppCompatActivity {
         // Log.e("List", "List" + users);
 
     }
-
 
     private void loadimage() {
 //        Intent i = new Intent();
@@ -287,7 +292,6 @@ public class chatActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
-            flag=1;
             Uri uri = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);

@@ -15,6 +15,12 @@
         android:text="@string/str_paired_device"
         android:textColor="#0B0A0A"
         android:textSize="20sp" />
+<!--    <Button-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_toEndOf="@+id/tv_title"-->
+<!--        android:id="@+id/btnBT"-->
+<!--        android:text="click"/>-->
     <!--        <ListView-->
     <!--            android:id="@+id/list_paired_device"-->
     <!--            android:layout_width="match_parent"-->
