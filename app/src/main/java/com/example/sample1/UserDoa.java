@@ -11,7 +11,7 @@ import java.util.List;
 public interface UserDoa {
 
     @Insert
-    void insertAll(User users);
+    void insertAll(User user);
 
     @Query("SELECT * FROM User")
     List<User> getallusers();

@@ -26,60 +26,58 @@ public class ChatadapterDoa extends RecyclerView.Adapter<chatviewholder> {
     Context context;
     Bitmap bitmap;
 
-
-    public ChatadapterDoa(List<User> msgDtoList, String my_id) {
+        public ChatadapterDoa(List<User> msgDtoList, String my_id) {
         this.msgDtoList = msgDtoList;
         this.my_id = my_id;
-    }
 
+
+    }
     @Override
     public void onBindViewHolder(chatviewholder holder, int position) {
-        User msgDto = this.msgDtoList.get(position);
-        Log.e("tag", "msg" + msgDto);
-        String val = "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$";
+
+         User msgDto = this.msgDtoList.get(position);
+        //messagemodel msgDto = this.msgDtoList.get(position);
+        Log.e("tag", "msg");
+
         if (msgDto.imageList != null) {
             byte[] bytes = Base64.decode(msgDto.imageList, Base64.DEFAULT);
             bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
             Log.e("tag", "m" + bitmap);
         }
+
         // User image=this.msgDtoList.get(position);
         //User image =this.msgDtoList.get(position);
-        // If the message is a received message.
-//        if(msgDto.MSG_TYPE_RECEIVED.equals(msgDto.getMsgType()))
-//        {
+//        if (msgDto.MSG_TYPE_RECEIVED.equals(msgDto.getMsgType())) {
 //            // Show received message in left linearlayout.
 //            holder.leftMsgLayout.setVisibility(LinearLayout.VISIBLE);
 //            holder.leftMsgTextView.setText(msgDto.getMsgContent());
 //            holder.rightMsgLayout.setVisibility(LinearLayout.GONE);
 //        }
 //        // If the message is a sent message.
-//        else if(msgDto.MSG_TYPE_SENT.equals(msgDto.getMsgType()))
-//        {
+//        else if (msgDto.MSG_TYPE_SENT.equals(msgDto.getMsgType())) {
 //            // Show sent message in right linearlayout.
 //            holder.rightMsgLayout.setVisibility(LinearLayout.VISIBLE);
 //            holder.rightMsgTextView.setText(msgDto.getMsgContent());
 //            holder.leftMsgLayout.setVisibility(LinearLayout.GONE);
 //        }
 
-
-//        SharedPreferences sh = context.getSharedPreferences("MyShared", MODE_PRIVATE);
-//       bitmap= sh.getString("bitmap", "");
-//        Log.e("tag","b" + bitmap);
-        if (msgDto.receiverID.equalsIgnoreCase(my_id)) {
+        //uncomment
+        if (msgDto.senderID.equalsIgnoreCase(my_id)) {
             // Show received message in left linearlayout.
             holder.leftMsgLayout.setVisibility(View.VISIBLE);
             holder.rightMsgLayout.setVisibility(View.GONE);
-            if (msgDto.messageInfo != null || msgDto.messageInfo.equalsIgnoreCase("null")) {
-                //if (msgDto.imageList.matches(val)) {
-                Log.e("tag", "message1" + msgDto.messageInfo);
-                holder.leftimage.setImageBitmap(bitmap);
-                holder.leftimage.setVisibility(View.VISIBLE);
-                holder.leftMsgTextView.setVisibility(View.GONE);
-            } else {
+//            if (msgDto.messageInfo != null || msgDto.messageInfo.equalsIgnoreCase("null")) {
+//                //if (msgDto.imageList.matches(val)) {
+//                Log.e("tag", "message1" + msgDto.messageInfo);
+//                holder.leftimage.setImageBitmap(bitmap);
+//                holder.leftimage.setVisibility(View.VISIBLE);
+//                holder.leftMsgTextView.setVisibility(View.GONE);
+//            } else {
                 holder.leftMsgTextView.setText(msgDto.messageInfo);
+                Log.e("tag","messahe info" );
                 holder.leftimage.setVisibility(View.GONE);
                 holder.leftMsgTextView.setVisibility(View.VISIBLE);
-            }
+          //  }
             holder.lefttimeview.setText(msgDto.messageDatetime);
             Log.e("tag", "bit" + bitmap);
 
@@ -87,30 +85,27 @@ public class ChatadapterDoa extends RecyclerView.Adapter<chatviewholder> {
         // If the message is a sent message.
         // else if (msgDto.senderID.equalsIgnoreCase(my_id)) {
         //   holder.rightMsgLayout.setVisibility(LinearLayout.VISIBLE);
+
+        //uncomment
         else {
             // Show sent message in right linearlayout.
             holder.leftMsgLayout.setVisibility(View.GONE);
             holder.rightMsgLayout.setVisibility(View.VISIBLE);
-            if (msgDto.messageInfo == null || msgDto.messageInfo.equalsIgnoreCase("null")) {
-                //   if (msgDto.imageList.matches(val)) {
-                Log.e("tag", "message2" + msgDto.messageInfo);
-                holder.rightimage.setImageBitmap(bitmap);
-                holder.rightimage.setVisibility(View.VISIBLE);
-                holder.rightMsgTextView.setVisibility(View.GONE);
-                Log.e("tag", "bit" + bitmap);
-//                holder.leftimage.setVisibility(LinearLayout.GONE);
-//                holder.leftMsgTextView.setVisibility(RelativeLayout.GONE);
-//                holder.lefttimeview.setVisibility(RelativeLayout.GONE);
-            } else {
+//            if (msgDto.messageInfo == null || msgDto.messageInfo.equalsIgnoreCase("null")) {
+//                //   if (msgDto.imageList.matches(val)) {
+//                Log.e("tag", "message2" + msgDto.messageInfo);
+//                holder.rightimage.setImageBitmap(bitmap);
+//                holder.rightimage.setVisibility(View.VISIBLE);
+//                holder.rightMsgTextView.setVisibility(View.GONE);
+//                Log.e("tag", "bit" + bitmap);
+//                //uncomment
+//            } else {
                 Log.e("tag", "message3" + msgDto.messageInfo);
                 holder.rightMsgTextView.setText(msgDto.messageInfo);
                 holder.rightimage.setVisibility(View.GONE);
                 holder.rightMsgTextView.setVisibility(View.VISIBLE);
 
-//                holder.leftimage.setVisibility(LinearLayout.GONE);
-//                holder.leftMsgTextView.setVisibility(RelativeLayout.GONE);
-//                holder.lefttimeview.setVisibility(RelativeLayout.GONE);
-            }
+           // }
             holder.righttimeview.setText(msgDto.messageDatetime);
         }
 
@@ -129,5 +124,9 @@ public class ChatadapterDoa extends RecyclerView.Adapter<chatviewholder> {
             msgDtoList = new ArrayList<User>();
         }
         return msgDtoList.size();
+
+       // return  msgDtoList.size();
+
     }
+
 }

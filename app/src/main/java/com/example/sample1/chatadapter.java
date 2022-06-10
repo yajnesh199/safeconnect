@@ -34,7 +34,7 @@ import java.util.UUID;
 
 public class chatadapter extends RecyclerView.Adapter<chatadapter.myviewholder> {
     ArrayList<String> stringList;
-    RecyclerClickListener onItemClick;
+    RecyclerClickListener onItemClickRecycler;
     Context context;
     private static final String APP_NAME = "BluetoothChatApp";
     private static final UUID MY_UUID = UUID.fromString("b159fafe-e55e-11ec-8fea-0242ac120002");
@@ -42,9 +42,9 @@ public class chatadapter extends RecyclerView.Adapter<chatadapter.myviewholder> 
     BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     BluetoothDevice[] devices;
 
-    public chatadapter(ArrayList<String> stringList, RecyclerClickListener onItemClick) {
+    public chatadapter(ArrayList<String> stringList, RecyclerClickListener onItemClickRecycler) {
         this.stringList = stringList;
-        this.onItemClick = onItemClick;
+        this.onItemClickRecycler = onItemClickRecycler;
     }
 
     @NonNull
@@ -58,23 +58,24 @@ public class chatadapter extends RecyclerView.Adapter<chatadapter.myviewholder> 
     public void onBindViewHolder(@NonNull myviewholder holder, @SuppressLint("RecyclerView") int position) {
         //String data = stringList.get(position);
         holder.tvv_paired.setText(stringList.get(position).toString());
-        onItemClick.onItemClick(position);
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Log.e("M", "n" + position);
-////                //  String id=tvv_paired.getText().toString();
-////                //  Log.e("bt_id","he " + id);
-//////                Intent intent = new Intent(view.getContext(), chatActivity.class);
-//////                intent.putExtra("key", " " + stringList.get(position));
-//////                view.getContext().startActivity(intent);
-////                SharedPreferences sh = context.getSharedPreferences("MySharedPref", MODE_PRIVATE);
-////               devices = sh.getInt(bluetoothDevices + "_size", 0);
-////                       ClientClass clientClass = new ClientClass(devices);
-////                     clientClass.start();
-//
-//            }
-//        });
+
+        // onItemClickRecycler.onItemClick(position);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e("M", "n" + position);
+                onItemClickRecycler.onItemClick(position);
+//                  String id=tvv_paired.getText().toString();
+//                  Log.e("bt_id","he " + id);
+//                Intent intent = new Intent(view.getContext(), chatActivity.class);
+//                intent.putExtra("key", " " + stringList.get(position));
+//                view.getContext().startActivity(intent);
+//                       ClientClass clientClass = new ClientClass(devices);
+//                     clientClass.start();
+
+            }
+        });
 
     }
 

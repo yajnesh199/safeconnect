@@ -365,10 +365,9 @@ public class ListBluetooth extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String string = writeMessage.getText().toString();
+
                 //     String message = etsendmsg.getText().toString();
-                sendReceive.write(string.getBytes());
-                Log.e(TAG, "setting up server" + string);
+               // Log.e(TAG, "setting up server" + string);
 
             }
         });
@@ -537,7 +536,7 @@ public class ListBluetooth extends AppCompatActivity {
                     Log.e(TAG, " read bytes " + str);
                     handler.obtainMessage(STATE_MESSAGE_RECEIVED, bytes, -1, buffer).sendToTarget();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                   e.getMessage();
                 }
             }
         }
