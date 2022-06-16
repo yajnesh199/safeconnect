@@ -57,6 +57,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -72,7 +73,8 @@ public class chatActivity extends AppCompatActivity {
     static final int STATE_MESSAGE_RECEIVED = 5;
     RecyclerView msgRecyclerView;
     recycleadapter recycleadapter;
-    ImageView msgSendButton, chat_image, image1;
+    byte[] byteArr;
+    ImageView msgSendButton, chat_image, img1;
     EditText msgInputText;
     TextView right_msg_text, txt_msg;
     String BT_address;
@@ -95,7 +97,12 @@ public class chatActivity extends AppCompatActivity {
     ImageView toolbaricon;
     SimpleDateFormat formatter;
     String strDate;
-
+    String encrypt;
+    String message_encrypt;
+    Bitmap bmp;
+    String bitmap;
+    String messageInputText;
+    byte[] imagesbytes;
     //List<String> mylist = new ArrayList<String>(Arrays.asList(tempMessage));
     private static final String APP_NAME = "BluetoothChatApp";
     private static final UUID MY_UUID = UUID.fromString("c413e31a-3766-48f9-8a20-e9f5b7b77b99");
@@ -121,6 +128,7 @@ public class chatActivity extends AppCompatActivity {
         Log.e("Chat_BT", "Address" + Sender_id);
         toolbaricon = findViewById(R.id.toolbar_icon);
         toolbartitle = findViewById(R.id.toolbar_title);
+        img1 = findViewById(R.id.im1);
         right_msg_text = findViewById(R.id.chat_right_msg_text_view);
         bluetoothDevice = getIntent().getExtras().getParcelable("bluetoothdevice");
         Log.e("tag", "h1" + bluetoothDevice);
@@ -136,7 +144,7 @@ public class chatActivity extends AppCompatActivity {
         userdao = db.userDao();
         users = userdao.getallusers();
         //  users = userdao.getchat(Sender_id);
-        chatadapterDoa = new ChatadapterDoa(users,Sender_id);
+        chatadapterDoa = new ChatadapterDoa(users, Sender_id);
         msgRecyclerView.setAdapter(chatadapterDoa);
         newMsgPosition = users.size() - 1;
         chatadapterDoa.notifyItemInserted(newMsgPosition);
@@ -164,7 +172,7 @@ public class chatActivity extends AppCompatActivity {
         //image1 = findViewById(R.id.image1);
         msgInputText = findViewById(R.id.chat_input_msg);
         msgSendButton = findViewById(R.id.chat_send_msg);
-        txt_msg = findViewById(R.id.text_msg);
+        // txt_msg = findViewById(R.id.text_msg);
         // getroomdata();
         chat_image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,11 +195,38 @@ public class chatActivity extends AppCompatActivity {
         msgSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String message = msgInputText.getText().toString();
-                sendReceive.write(message.getBytes());
-                formatter = new SimpleDateFormat("dd MMMM ,yyyy HH:mm:ss ");
-                strDate = formatter.format(new Date().getTime());
-                userdao.insertAll(new User(null,Sender_id,BT_address, message, strDate, null, null));
+
+                messageInputText = msgInputText.getText().toString();
+                try {
+                    encrypt = com.scottyab.aescrypt.AESCrypt.encrypt("123", msgInputText.getText().toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                if (!messageInputText.isEmpty()) {
+                    sendReceive.write(messageInputText.getBytes());
+                   // sendReceive.write(image.getBytes());
+                    formatter = new SimpleDateFormat("dd MMMM ,yyyy HH:mm:ss ");
+                    strDate = formatter.format(new Date().getTime());
+                    userdao.insertAll(new User(null, Sender_id, BT_address, encrypt, strDate, null, null));
+                    // msgInputText.setText("");
+                } else {
+                    //  sendReceive.write(image.getBytes());
+                    userdao.insertAll(new User(null, Sender_id, BT_address, null, strDate, null, image));
+                }
+                msgRecyclerView = findViewById(R.id.recview);
+                msgRecyclerView.setLayoutManager(new LinearLayoutManager(chatActivity.this));
+                userdao = db.userDao();
+                users = userdao.getallusers();
+                chatadapterDoa = new ChatadapterDoa(users, Sender_id);
+                msgRecyclerView.setAdapter(chatadapterDoa);
+                newMsgPosition = users.size() - 1;
+                Log.e("M", "msgposition " + newMsgPosition);
+                chatadapterDoa.notifyItemInserted(newMsgPosition);
+                msgRecyclerView.scrollToPosition(newMsgPosition);
+                chatadapterDoa.notifyDataSetChanged();
+
+//                if (!TextUtils.isEmpty(message)) {
+//                }
 
                 //  stringtobitmap();
                 //bitmaptostring();
@@ -217,12 +252,7 @@ public class chatActivity extends AppCompatActivity {
 //                    chatadapterDoa.notifyDataSetChanged();
                 //  msgInputText.setText("");
                 // String msgContent = msgInputText.getText().toString();
-//                if (!TextUtils.isEmpty(msgContent)) {
-//                    Log.e("M", "msgposition " + newMsgPosition);
-//                    chatadapterDoa.notifyItemInserted(newMsgPosition);
-//                    msgRecyclerView.scrollToPosition(newMsgPosition);
-//
-//                }
+
             }
 
         });
@@ -230,20 +260,37 @@ public class chatActivity extends AppCompatActivity {
     }
 
     public void insertroomdb(String message) {
-
-        Log.e("Tag", "Insert_Method");
-       formatter = new SimpleDateFormat("dd MMMM ,yyyy HH:mm:ss ");
+        try {
+            message_encrypt = com.scottyab.aescrypt.AESCrypt.encrypt("123", message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        formatter = new SimpleDateFormat("dd MMMM ,yyyy HH:mm:ss ");
         //   SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
-         strDate = formatter.format(new Date().getTime());
-        userdao.insertAll(new User(null,BT_address,Sender_id, message, strDate, null, null));
-        //userdao.insertAll(new User(null,BT_address,Sender_id, message, strDate, null, null));
-        //userdao.insertAll(new User(null, Sender_id, BT_address, msgInputText.getText().toString(), strDate, null, image));
-       // userdao.insertAll(new User(null,Sender_id,BT_address, message, strDate, null, null));
+        strDate = formatter.format(new Date().getTime());
+        Log.e("Tag", "Insert_Method" + message);
+        if (message==null) {
+            Log.e("Tag", "InsertMethod" + message);
+            userdao.insertAll(new User(null, BT_address, Sender_id, null, strDate, null, image));
+        }
+        else {
+            Log.e("Tag", "Insert_Method" + message);
+            userdao.insertAll(new User(null, BT_address, Sender_id, message_encrypt, strDate, null,null));
+
+        }
+        msgRecyclerView = findViewById(R.id.recview);
+        msgRecyclerView.setLayoutManager(new LinearLayoutManager(chatActivity.this));
+        userdao = db.userDao();
+        users = userdao.getallusers();
+        chatadapterDoa = new ChatadapterDoa(users, Sender_id);
+        msgRecyclerView.setAdapter(chatadapterDoa);
+        newMsgPosition = users.size() - 1;
+        Log.e("M", "msgposition " + newMsgPosition);
+        chatadapterDoa.notifyItemInserted(newMsgPosition);
+        msgRecyclerView.scrollToPosition(newMsgPosition);
+        chatadapterDoa.notifyDataSetChanged();
     }
 
-    public void getroomdata() {
-
-    }
 
     private void loadimage() {
 //        Intent i = new Intent();
@@ -280,16 +327,6 @@ public class chatActivity extends AppCompatActivity {
 //    }
 
 
-    //    public void getroomdata() {
-//        database db = Room.databaseBuilder(getApplicationContext(),
-//                database.class, "database-name").allowMainThreadQueries().build();
-//        UserDoa userdao = db.userDao();
-//       msgRecyclerView = findViewById(R.id.recview);
-//        msgRecyclerView.setLayoutManager(new LinearLayoutManager(chatActivity.this));
-//        List<User> users = userdao.getallusers();
-//      messageadapter2 adapter = new messageadapter2(Users);
-//        msgRecyclerView.setAdapter(adapter);
-//    }
     private void set_up_action_and_status_bar() {
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
@@ -317,14 +354,28 @@ public class chatActivity extends AppCompatActivity {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 40, stream);
-                byte[] bytes = stream.toByteArray();
-                image = Base64.encodeToString(bytes, Base64.DEFAULT);
-                Log.e("img", "l" + image);
-//                sharedPreferences = getSharedPreferences("MyShared", Context.MODE_PRIVATE);
-//                 SharedPreferences.Editor myEdit = sharedPreferences.edit();
-//                myEdit.putString("bitmap", image);
-//                 myEdit.commit();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 60, stream);
+                imagesbytes = stream.toByteArray();
+                image = Base64.encodeToString(imagesbytes, Base64.DEFAULT);
+                Log.e("img", "image_base64 " + image);
+                Log.e(" tag", "\n byte string " + image.getBytes());
+
+                // Log.e(" tag","\n byte string " + Arrays.toString(image.getBytes()));
+              //  msgInputText.setText(image);
+                int subArray = 400;
+
+ //                 sendReceive.write(image.getBytes());
+//                formatter = new SimpleDateFormat("dd MMMM ,yyyy HH:mm:ss ");
+//                strDate = formatter.format(new Date().getTime());
+//                userdao.insertAll(new User(null, Sender_id, BT_address,null, strDate, null, image));
+
+//                sendReceive.write(String.valueOf(imagesbytes.length).getBytes());
+//                for (int i = 0; i < imagesbytes.length; i += subArray) {
+//                    byte[] tempArray;
+//                    tempArray = Arrays.copyOfRange(imagesbytes, i, Math.min(imagesbytes.length, i + subArray));
+//                    sendReceive.write(tempArray);
+//                }
+//
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -424,8 +475,14 @@ public class chatActivity extends AppCompatActivity {
         }
 
         public void run() {
+//            Boolean flag = true;
+//            int numberofbytes = 0;
+//            int index = 0;
+//             byte[] buffer = null;
             byte[] buffer = new byte[1024];
             int bytes;
+            byte[] imgBuffer = new byte[1024 * 1024];
+            int pos = 0;
             while (true) {
                 try {
                     bytes = inputStream.read(buffer);
@@ -433,21 +490,69 @@ public class chatActivity extends AppCompatActivity {
                     String str = new String(buffer);
                     Log.e(TAG, " read bytes " + str);
                     handler.obtainMessage(STATE_MESSAGE_RECEIVED, bytes, -1, buffer).sendToTarget();
+//                    bytes = inputStream.read(imgBuffer);
+//                    System.arraycopy(buffer, 0, imgBuffer, pos, bytes);
+//                    pos += bytes;
+//                    handler.obtainMessage(STATE_MESSAGE_RECEIVED, pos, -1, imgBuffer).sendToTarget();
+
 
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
+
+//            while (true) {
+//                if (flag) {
+//                    try {
+//                        byte[] temp = new byte[inputStream.available()];
+//                        if (inputStream.read(temp) > 0) {
+//                            numberofbytes = Integer.parseInt(new String(temp, StandardCharsets.UTF_8));
+//                            buffer = new byte[numberofbytes];
+//                            flag = false;
+//                        }
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                } else {
+//                    try {
+//                        byte[] data = new byte[inputStream.available()];
+//                        int numbers = inputStream.read(data);
+//                        System.arraycopy(data, 900, buffer, index, numbers);
+//                        index = index + numbers;
+//                        if (index == numberofbytes) {
+//                            handler.obtainMessage(STATE_MESSAGE_RECEIVED, numberofbytes, -1, buffer).sendToTarget();
+//                            flag = true;
+//                        }
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+
+
         }
 
         public void write(byte[] bytes) {
+
             try {
                 outputStream.write(bytes);
+                //  outputStream.flush();
                 Log.e(TAG, "write bytes" + bytes);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+//        private void write() {
+//            tvData.setText("Sending ...");
+//
+//            try {
+//                outputStream = socket.getOutputStream();
+//                outputStream.write((encodedImg + "stop").getBytes());
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+
     }
 
     Handler handler = new Handler(new Handler.Callback() {
@@ -474,8 +579,17 @@ public class chatActivity extends AppCompatActivity {
                         String tempMessage = new String(readBuffer, 0, msg.arg1);
                         my_list = new ArrayList<String>(Arrays.asList(tempMessage));
                         Log.e(TAG, " message received " + my_list);
+
+//                        byte[] readBuff = (byte[]) msg.obj;
+//                        String temp = new String(readBuff, 0, msg.arg1);
+//                        Log.e("tag", "temp" + temp);
+//                         byte[] bytes = Base64.decode(temp, Base64.DEFAULT);
+//                          Log.e("tag", "temp" + bytes);
+//                        bmp = BitmapFactory.decodeByteArray(readBuff, 0, readBuff.length);
+//                        Log.e("tag", "bitttt" + bmp);
+//                        img1.setImageBitmap(bmp);
                         insertroomdb(tempMessage);
-                        txt_msg.setText(tempMessage);
+
                         break;
                 }
             }

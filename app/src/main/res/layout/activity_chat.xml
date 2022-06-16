@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/lightyellow"
+    android:background="@color/white"
     tools:context=".chatActivity">
 
     <include
@@ -19,17 +19,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/chat_toolbar">
-
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:id="@+id/im1"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/text_msg"
-            android:textSize="20sp"/>
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/text_msg"-->
+<!--            android:textSize="20sp"/>-->
 
     </RelativeLayout>
 
@@ -74,6 +77,7 @@
                 app:tint="@color/teal_200" />
 
         </LinearLayout>
+
     </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

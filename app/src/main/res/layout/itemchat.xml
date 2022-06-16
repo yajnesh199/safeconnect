@@ -34,18 +34,18 @@
                 android:layout_width="250dp"
                 android:layout_height="250dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_baseline_image_24"
-                android:visibility="gone" />
+                android:src="@drawable/ic_baseline_image_24" />
+            <TextView
+                android:id="@+id/chat_left_time_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/chat_left_msg_text_view"
+                android:layout_toEndOf="@+id/chat_left_msg_text_view"
+                android:text=""
+                android:textSize="10sp" />
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/chat_left_time_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/chat_left_msg_text_view"
-            android:layout_toEndOf="@+id/chat_left_msg_text_view"
-            android:text="333333"
-            android:textSize="10sp" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -73,8 +73,7 @@
                 android:layout_width="250dp"
                 android:layout_height="250dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_baseline_image_24"
-                android:visibility="gone" />
+                android:src="@drawable/ic_baseline_image_24" />
             <TextView
                 android:id="@+id/chat_right_time_view"
                 android:layout_width="wrap_content"
