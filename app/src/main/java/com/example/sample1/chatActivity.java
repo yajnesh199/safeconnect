@@ -79,7 +79,7 @@ public class chatActivity extends AppCompatActivity {
     TextView right_msg_text, txt_msg;
     String BT_address;
     String receiver_id;
-    String BT_name;
+    String Device_name;
     String Sender_id;
     String my_id;
     TextView toolbartitle;
@@ -123,6 +123,7 @@ public class chatActivity extends AppCompatActivity {
 
         }
         Sender_id = bluetoothAdapter.getAddress();
+        Device_name=bluetoothAdapter.getName();
         Log.e("h", "h" + Sender_id);
         Toast.makeText(this, "" + Sender_id, Toast.LENGTH_SHORT).show();
         Log.e("Chat_BT", "Address" + Sender_id);
@@ -134,7 +135,7 @@ public class chatActivity extends AppCompatActivity {
         Log.e("tag", "h1" + bluetoothDevice);
         BT_address = bluetoothDevice.getAddress();
         Toast.makeText(this, "" + BT_address, Toast.LENGTH_SHORT).show();
-        toolbartitle.setText(BT_address);
+        toolbartitle.setText(Device_name);
         ServerClass1 serverClass1 = new ServerClass1();
         serverClass1.start();
         ClientClass clientClass = new ClientClass(bluetoothDevice);
@@ -361,7 +362,7 @@ public class chatActivity extends AppCompatActivity {
                 Log.e(" tag", "\n byte string " + image.getBytes());
 
                 // Log.e(" tag","\n byte string " + Arrays.toString(image.getBytes()));
-              //  msgInputText.setText(image);
+                //msgInputText.setText(image);
                 int subArray = 400;
 
  //                 sendReceive.write(image.getBytes());
